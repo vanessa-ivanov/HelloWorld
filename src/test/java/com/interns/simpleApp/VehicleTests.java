@@ -1,6 +1,6 @@
 package com.interns.simpleApp;
 
-public class vehicle {
+public class VehicleTests {
 
     private String storage;
     private String type;
@@ -32,4 +32,7 @@ public class vehicle {
         return size;
     }
 
+    public String toString(){
+        return "Storage: " + storage + ", Type: " + type + ", Fuel: " + fuel + ", Size: " + size;
+    }
 }
