@@ -1,4 +1,5 @@
-FROM eclipse-temurin:17-jdk-focal
-ADD target/SimpleApp SimpleApp
+FROM openjdk:17
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "webapp-0.0.1-SNAPSHOT.jar"]
+WORKDIR /SimpleApp
+ADD spring-boot-docker.jar spring-boot-docker.jar
+ENTRYPOINT ["java", "-jar", "spring-boot-docker.jar"]
