@@ -8,15 +8,4 @@ import org.springframework.web.bind.annotation.PostMapping;
 @SpringBootTest
 class SimpleAppApplicationTests {
 
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
-
-	@PostMapping("/register")
-	public String userRegistration(@ModelAttribute VehicleTests vehicleTests) {
-		System.out.println(vehicleTests.toString());
-		return "index";
-	}
-
 }
