@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run:  mvn spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}
+      run:  mvn spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/vanessa-ivanov/simpleapp
 
     - name: Log in to the Container registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
@@ -34,5 +34,5 @@ jobs:
 
     - name: Push Docker Image
       run: |
-        docker push ${{ env.REGISTRY }}
+        docker push ${{ env.REGISTRY }}//vanessa-ivanov/simpleapp
   
