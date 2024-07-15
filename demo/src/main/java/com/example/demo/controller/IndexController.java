@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
-import com.example.demo.model.loginData;
+import com.example.demo.model.LoginData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +47,7 @@ public class IndexController {
         return "login";
     }
     @RequestMapping("/loginInput")
-    public String userLoginInput(@ModelAttribute loginData login, Model model) {
+    public String userLoginInput(@ModelAttribute LoginData login, Model model) {
          for (User existingUser : users) {
             if (existingUser.getEmail().equals(login.getLogEmail()) && existingUser.getPasswd().equals(login.getLogPasswd())){
                 model.addAttribute("firstname", existingUser.getFname());

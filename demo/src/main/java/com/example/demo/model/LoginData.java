@@ -1,10 +1,10 @@
 package com.example.demo.model;
 
-public class loginData {
+public class LoginData {
     private String logEmail;
     private String logPasswd;
 
-    public loginData(String logEmail, String logPasswd) {
+    public LoginData(String logEmail, String logPasswd) {
         this.logEmail = logEmail;
         this.logPasswd = logPasswd;
     }
