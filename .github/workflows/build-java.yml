@@ -27,7 +27,7 @@ jobs:
         server-id: github 
         settings-path: ${{ github.workspace }}
     - name: Build with Maven
-      run:  mvn spring-boot:build-image -Dspring-boot.build-image.simpleapp=${{ env.REGISTRY }}/vanessa-ivanov/simpleapp
+      run:  mvn spring-boot:build-image -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/vanessa-ivanov/simpleapp
 
     - name: Log in to the Container registry
       uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
