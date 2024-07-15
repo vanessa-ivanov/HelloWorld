@@ -46,6 +46,7 @@ public class IndexController {
     public String userLogin(){
         return "login";
     }
+
     @RequestMapping("/loginInput")
     public String userLoginInput(@ModelAttribute LoginData login, Model model) {
          for (User existingUser : users) {
