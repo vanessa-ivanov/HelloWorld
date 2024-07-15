@@ -35,19 +35,20 @@ public class IndexController {
             //NOI = Non-Optional Input
             model.addAttribute("NOI", "Please fill all non-optional boxes!");
             return "register";
-        } else if (!(user.getPasswd().equals(user.getPasswd2()))){
+        } else if (!(user.getPasswd().equals(user.getPasswd2()))) {
             //PDM = Passwords Don´t Match
             model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
-        } else {
+        } else if (userNumber > 0) {
             for (User userEmail : users){
-                if (userEmail.equals(user.getEmail())){
+                if (userEmail.getEmail().equals(user.getEmail())){
                     //EAU = Email Already Used
                     model.addAttribute("EAU", "An account with this  email already exists!");
                     return "register";
                 }
             }
-            if(user.getGender().equals("")){
+        } else {
+            if (user.getGender().equals("")) {
                 users[userNumber] = new User(user.getFname(),
                         user.getLname(),
                         user.getEmail(),
@@ -66,12 +67,12 @@ public class IndexController {
                         user.getGender()
                 );
             }
-            System.out.println(users[userNumber].toString());
-            model.addAttribute("firstname", user.getFname());
-            model.addAttribute("lastname", user.getLname());
-            userNumber += 1;
-            return "welcome";
         }
+        System.out.println(users[userNumber].toString());
+        model.addAttribute("firstname", user.getFname());
+        model.addAttribute("lastname", user.getLname());
+        userNumber += 1;
+        return "welcome";
     }
 
     @RequestMapping("/loginInput")
