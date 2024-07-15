@@ -32,7 +32,7 @@ public class IndexController {
                 user.getPasswd2().equals("") ||
                 user.getDob().equals("")
         ) {
-            //NOI = Non Optional Input
+            //NOI = Non-Optional Input
             model.addAttribute("NOI", "Please fill all non-optional boxes!");
             return "register";
         } else if (!(user.getPasswd().equals(user.getPasswd2()))){
@@ -40,7 +40,14 @@ public class IndexController {
             model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
         } else {
-            if (user.getGender().equals("")){
+            for (User userEmail : users){
+                if (userEmail.equals(user.getEmail())){
+                    //EAU = Email Already Used
+                    model.addAttribute("EAU", "An account with this  email already exists!");
+                    return "register";
+                }
+            }
+            if(user.getGender().equals("")){
                 users[userNumber] = new User(user.getFname(),
                         user.getLname(),
                         user.getEmail(),
