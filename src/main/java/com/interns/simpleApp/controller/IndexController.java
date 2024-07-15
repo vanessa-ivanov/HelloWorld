@@ -25,18 +25,24 @@ public class IndexController {
 
     @RequestMapping("/registerInput")
     public String userRegistrationInput(@ModelAttribute User user, Model model) {
-        System.out.println(user.toString());
-        users[userNumber] = new User(user.getFname(),
-                user.getLname(),
-                user.getEmail(),
-                user.getPasswd(),
-                user.getDob(),
-                user.getGender()
-        );
-        model.addAttribute("firstname", user.getFname());
-        model.addAttribute("lastname", user.getLname());
-        userNumber += 1;
-        return "welcome";
+        if (!(user.getPasswd().equals(user.getPasswd2()))){
+            //PDM = Passwords Don´t Match
+            model.addAttribute("PDM", "Passwords don´t match");
+            return "register";
+        } else {
+            System.out.println(user.toString());
+            users[userNumber] = new User(user.getFname(),
+                    user.getLname(),
+                    user.getEmail(),
+                    user.getPasswd(),
+                    user.getDob(),
+                    user.getGender()
+            );
+            model.addAttribute("firstname", user.getFname());
+            model.addAttribute("lastname", user.getLname());
+            userNumber += 1;
+            return "welcome";
+        }
     }
 
     @RequestMapping("/loginInput")

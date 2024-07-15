@@ -5,6 +5,7 @@ public class User {
     private String lname;
     private String email;
     private String passwd;
+    private String passwd2;
     private String dob;
     private String gender;
 
@@ -52,6 +53,12 @@ public class User {
     }
     public void setGender(String gender) {
         this.gender = gender;
+    }
+    public String getPasswd2() {
+        return passwd2;
+    }
+    public void setPasswd2(String passwd2) {
+        this.passwd2 = passwd2;
     }
 
     @Override

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmln:th=www.thymeleaf.org xmlns:xmln="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>register</title>
 </head>
 <body>
     <h1>Welcome to: register.html</h1>
-
     <form action="registerInput" method="post">
         <label for="fname">First name :</label> <br/>
         <input type="text" name="fname" id="fname"/> <br/>
@@ -23,6 +23,9 @@
         <label for="passwd">Password :</label> <br/>
         <input type="password" name="passwd" id="passwd"/> <br/>
 
+        <label for="passwd2">Verify password :</label> <br/>
+        <input type="password" name="passwd2" id="passwd2"/> <br/>
+
         <label for="gender">Gender :</label> <br/>
         <select name="gender" id="gender">
             <option value=""></option>
@@ -33,5 +36,6 @@
 
         <button type="submit">Register</button>
     </form>
+    <h3 th:text=${PDM}>Passwords don´t match</h3>
 </body>
 </html>
