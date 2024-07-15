@@ -1,5 +1,6 @@
 package com.interns.simpleApp.controller;
 
+import com.interns.simpleApp.model.LoginData;
 import com.interns.simpleApp.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,18 @@ public class IndexController {
         model.addAttribute("lastname", user.getLname());
         userNumber += 1;
         return "welcome";
+    }
+
+    @RequestMapping("/loginInput")
+    public String userLoginInput(@ModelAttribute LoginData login, Model model) {
+        for (User existingUser : users) {
+            if (existingUser.getEmail().equals(login.getLogEmail()) && existingUser.getPasswd().equals(login.getLogPasswd())){
+                model.addAttribute("firstname", existingUser.getFname());
+                model.addAttribute("lastname", existingUser.getLname());
+                return "welcome";
+            }
+        }
+        return "login";
     }
 
     @RequestMapping("/login")
