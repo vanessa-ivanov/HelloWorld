@@ -24,6 +24,7 @@ public class IndexController {
 
     @RequestMapping("/registerInput")
     public String userRegistrationInput(@ModelAttribute User user, Model model) {
+        System.out.println(user.toString());
         users[userNumber] = new User(user.getFname(),
                 user.getLname(),
                 user.getEmail(),
@@ -31,8 +32,9 @@ public class IndexController {
                 user.getDob(),
                 user.getGender()
         );
+        model.addAttribute("firstname", user.getFname());
+        model.addAttribute("lastname", user.getLname());
         userNumber += 1;
-        System.out.println(user.toString());
         return "welcome";
     }
 
