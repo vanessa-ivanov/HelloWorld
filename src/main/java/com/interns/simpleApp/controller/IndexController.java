@@ -25,19 +25,41 @@ public class IndexController {
 
     @RequestMapping("/registerInput")
     public String userRegistrationInput(@ModelAttribute User user, Model model) {
-        if (!(user.getPasswd().equals(user.getPasswd2()))){
+        if(user.getFname().equals("") ||
+                user.getLname().equals("") ||
+                user.getEmail().equals("") ||
+                user.getPasswd().equals("") ||
+                user.getPasswd2().equals("") ||
+                user.getDob().equals("")
+        ) {
+            //NOI = Non Optional Input
+            model.addAttribute("NOI", "Please fill all non-optional boxes!");
+            return "register";
+        } else if (!(user.getPasswd().equals(user.getPasswd2()))){
             //PDM = Passwords Don´t Match
-            model.addAttribute("PDM", "Passwords don´t match");
+            model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
         } else {
-            System.out.println(user.toString());
-            users[userNumber] = new User(user.getFname(),
-                    user.getLname(),
-                    user.getEmail(),
-                    user.getPasswd(),
-                    user.getDob(),
-                    user.getGender()
-            );
+            if (user.getGender().equals("")){
+                users[userNumber] = new User(user.getFname(),
+                        user.getLname(),
+                        user.getEmail(),
+                        user.getPasswd(),
+                        user.getPasswd2(),
+                        user.getDob(),
+                        "Not given"
+                );
+            } else {
+                users[userNumber] = new User(user.getFname(),
+                        user.getLname(),
+                        user.getEmail(),
+                        user.getPasswd(),
+                        user.getPasswd2(),
+                        user.getDob(),
+                        user.getGender()
+                );
+            }
+            System.out.println(users[userNumber].toString());
             model.addAttribute("firstname", user.getFname());
             model.addAttribute("lastname", user.getLname());
             userNumber += 1;
