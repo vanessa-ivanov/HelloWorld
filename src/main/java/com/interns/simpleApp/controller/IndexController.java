@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -43,6 +45,10 @@ public class IndexController {
         if (emailAlreadyUsed(user)) {
             // EAU = Email Already Used
             model.addAttribute("EAU", "An account with this email already exists!");
+            return "register";
+        }
+        if (userToYoung(user)){
+            model.addAttribute("TY", "You have to be at least 18 years old!");
             return "register";
         }
         if (userLimitReached()) {
@@ -81,6 +87,12 @@ public class IndexController {
 
     public boolean userLimitReached() {
         return users.size() +1 > maxUsers;
+    }
+
+    public boolean userToYoung(User user){
+        String[] DMY = user.getDob().split("-");
+        Date dob = new Date(Integer.parseInt(DMY[0]), Integer.parseInt(DMY[1]), Integer.parseInt(DMY[2]));
+        return (LocalDate.now().getYear() - dob.getYear() < 18);
     }
 
     public boolean noGenderGiven(User user) {
