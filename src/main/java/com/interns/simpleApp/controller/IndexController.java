@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class IndexController {
-    User[] users = new User[10];
+    User[] users = new User[2];
     int userNumber = 0;
 
     @GetMapping("/")
@@ -25,12 +25,12 @@ public class IndexController {
 
     @RequestMapping("/registerInput")
     public String userRegistrationInput(@ModelAttribute User user, Model model) {
-        if(user.getFname().equals("") ||
-                user.getLname().equals("") ||
-                user.getEmail().equals("") ||
-                user.getPasswd().equals("") ||
-                user.getPasswd2().equals("") ||
-                user.getDob().equals("")
+        if(user.getFname().isEmpty() ||
+                user.getLname().isEmpty()  ||
+                user.getEmail().isEmpty()  ||
+                user.getPasswd().isEmpty()  ||
+                user.getPasswd2().isEmpty()  ||
+                user.getDob().isEmpty()
         ) {
             //NOI = Non-Optional Input
             model.addAttribute("NOI", "Please fill all non-optional boxes!");
@@ -39,17 +39,24 @@ public class IndexController {
             //PDM = Passwords Don´t Match
             model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
-        } else if (userNumber > 0) {
-            for (User userEmail : users){
-                if (userEmail.getEmail().equals(user.getEmail())){
-                    //EAU = Email Already Used
-                    model.addAttribute("EAU", "An account with this  email already exists!");
+        }
+        if (userNumber > 0) {
+            for (int a = 0; a < userNumber; a++) {
+                if (users[a].getEmail().equals(user.getEmail())) {
+                    // EAU = Email Already Used
+                    model.addAttribute("EAU", "An account with this email already exists!");
                     return "register";
                 }
             }
+        }
+        if (userNumber > users.length -1) {
+            //ULR = User Limit Reached
+            model.addAttribute("ULR", "User limit reached!");
+            return "register";
         } else {
             if (user.getGender().equals("")) {
-                users[userNumber] = new User(user.getFname(),
+                users[userNumber] = new User(
+                        user.getFname(),
                         user.getLname(),
                         user.getEmail(),
                         user.getPasswd(),
@@ -58,7 +65,8 @@ public class IndexController {
                         "Not given"
                 );
             } else {
-                users[userNumber] = new User(user.getFname(),
+                users[userNumber] = new User(
+                        user.getFname(),
                         user.getLname(),
                         user.getEmail(),
                         user.getPasswd(),
@@ -75,12 +83,13 @@ public class IndexController {
         return "welcome";
     }
 
+
     @RequestMapping("/loginInput")
     public String userLoginInput(@ModelAttribute LoginData login, Model model) {
-        for (User existingUser : users) {
-            if (existingUser.getEmail().equals(login.getLogEmail()) && existingUser.getPasswd().equals(login.getLogPasswd())){
-                model.addAttribute("firstname", existingUser.getFname());
-                model.addAttribute("lastname", existingUser.getLname());
+        for (int a = 0; a < userNumber; a++) {
+            if (users[a].getEmail().equals(login.getLogEmail()) && users[a].getPasswd().equals(login.getLogPasswd())){
+                model.addAttribute("firstname", users[a].getFname());
+                model.addAttribute("lastname", users[a].getLname());
                 return "welcome";
             }
         }
