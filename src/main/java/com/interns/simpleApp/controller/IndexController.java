@@ -24,7 +24,7 @@ public class IndexController {
     }
 
     @RequestMapping("/register")
-    public String userRegistration(){
+    public String userRegistration() {
         return "register";
     }
 
@@ -35,7 +35,7 @@ public class IndexController {
             model.addAttribute("NOI", "Please fill all non-optional boxes!");
             return "register";
         }
-        if  (passwordsDontMatch(user)){
+        if  (passwordsDontMatch(user)) {
             //PDM = Passwords Don´t Match
             model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
@@ -68,22 +68,22 @@ public class IndexController {
                 user.getDob().isEmpty();
     }
 
-    public boolean passwordsDontMatch(User user){
+    public boolean passwordsDontMatch(User user) {
         return (!(user.getPasswd().equals(user.getPasswd2())));
     }
 
-    public boolean emailAlreadyUsed(User user){
+    public boolean emailAlreadyUsed(User user) {
         for (User userEmail : users) {
             return userEmail.getEmail().equals(user.getEmail());
         }
         return false;
     }
 
-    public boolean userLimitReached(){
+    public boolean userLimitReached() {
         return users.size() +1 > maxUsers;
     }
 
-    public boolean noGenderGiven(User user){
+    public boolean noGenderGiven(User user) {
         return user.getGender().isEmpty();
     }
 
@@ -98,7 +98,7 @@ public class IndexController {
     @RequestMapping("/loginInput")
     public String userLoginInput(@ModelAttribute LoginData login, Model model) {
         for (User userLogin : users) {
-            if (successfulLogin(login, userLogin)){
+            if (successfulLogin(login, userLogin)) {
                 model.addAttribute("firstname", userLogin.getFname());
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
@@ -110,26 +110,31 @@ public class IndexController {
         return "login";
     }
 
-    public boolean successfulLogin(LoginData login, User userLogin){
+    public boolean successfulLogin(LoginData login, User userLogin) {
         return userLogin.getEmail().equals(login.getLogEmail()) && userLogin.getPasswd().equals(login.getLogPasswd());
     }
 
     @RequestMapping("/login")
-    public String userLogin(){
+    public String userLogin() {
         return "login";
     }
 
     @RequestMapping("/deleteAccount")
-    public String deleteAccount(String passwd, Model model){
+    public String deleteAccount(String passwd, Model model) {
         System.out.println(activeUser);
-        if (passwd.equals(activeUser.getPasswd())){
+        if (passwd.equals(activeUser.getPasswd())) {
             users.remove(activeUser);
-            model.addAttribute("DS", "Deletion successful!");
+            model.addAttribute("DS", "Account deleted successfully");
             return "register";
         }
         model.addAttribute("firstname", activeUser.getFname());
         model.addAttribute("lastname", activeUser.getLname());
         model.addAttribute("DF", "Check password!");
         return "welcome";
+    }
+
+    @RequestMapping("/index")
+    public String navigateToIndex() {
+        return "index";
     }
 }

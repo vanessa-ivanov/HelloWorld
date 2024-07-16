@@ -5,6 +5,7 @@
     <title>login</title>
 </head>
 <body>
+<h1>Login an existing account</h1>
 <form action="loginInput" method="post">
     <label for="logEmail">Email :</label> <br/>
     <input type="email" name="logEmail" id="logEmail"/> <br/>
@@ -12,7 +13,12 @@
     <label for="logPasswd">Password :</label> <br/>
     <input type="password" name="logPasswd" id="logPasswd"/> <br/>
     <button type="submit">Login</button>
-    <h3 th:text=${NSA}>No such account</h3>
 </form>
+    <h3 th:text=${NSA}>No such account</h3>
+    <p/>
+    <h3>Don´t have an account?</h3>
+    <form action="register" method="post">
+        <button type="submit">Register</button>
+    </form>
 </body>
 </html>

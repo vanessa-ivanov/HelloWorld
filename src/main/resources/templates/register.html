@@ -6,7 +6,7 @@
     <title>register</title>
 </head>
 <body>
-    <h1>Welcome to: register.html</h1>
+    <h1>Create a new account</h1>
     <form action="registerInput" method="post">
         <label for="fname">First name :</label> <br/>
         <input type="text" name="fname" id="fname"/> <br/>
@@ -40,6 +40,11 @@
     <h3 th:text=${NOI}>Non-optional input</h3>
     <h3 th:text=${EAU}>Email already used</h3>
     <h3 th:text=${ULR}>User limit reached</h3>
-    <h3 th:text=${DS}>Deletion successful!</h3>
+    <h3 th:text=${DS}>Account deleted successfully</h3>
+    <p/>
+    <h3>Already have an account?</h3>
+    <form action="login" method="post">
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
