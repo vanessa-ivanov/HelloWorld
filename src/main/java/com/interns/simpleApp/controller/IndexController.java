@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class IndexController {
     User[] users = new User[2];
@@ -40,13 +43,11 @@ public class IndexController {
             model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
         }
-        if (userNumber > 0) {
-            for (int a = 0; a < userNumber; a++) {
-                if (users[a].getEmail().equals(user.getEmail())) {
-                    // EAU = Email Already Used
-                    model.addAttribute("EAU", "An account with this email already exists!");
-                    return "register";
-                }
+        for (int a = 0; a < userNumber; a++) {
+            if (users[a].getEmail().equals(user.getEmail())) {
+                // EAU = Email Already Used
+                model.addAttribute("EAU", "An account with this email already exists!");
+                return "register";
             }
         }
         if (userNumber > users.length -1) {
@@ -93,6 +94,8 @@ public class IndexController {
                 return "welcome";
             }
         }
+        //NSA = No Such Account
+        model.addAttribute("NSA", "No such account!");
         return "login";
     }
 
