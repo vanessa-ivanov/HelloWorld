@@ -1,0 +1,13 @@
+h1 {
+  color:#FF9F00;
+  font-size:28pt;
+  font-family:arial, "lucida console", sans-serif;
+}
+button {
+  width: 100px;
+  background-color: lightblue;
+  margin: 5px;
+  border-size: 3px;
+  border-radius: 5px;
+  font-size: 20px;
+}
