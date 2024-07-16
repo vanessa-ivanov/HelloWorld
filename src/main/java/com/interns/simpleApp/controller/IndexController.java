@@ -13,8 +13,9 @@ import java.util.List;
 
 @Controller
 public class IndexController {
-    User[] users = new User[2];
-    int userNumber = 0;
+
+    int maxUsers = 2;
+    List<User> users = new ArrayList<>();
 
     @GetMapping("/")
     public String index() {
@@ -43,20 +44,20 @@ public class IndexController {
             model.addAttribute("PDM", "Passwords don´t match!");
             return "register";
         }
-        for (int a = 0; a < userNumber; a++) {
-            if (users[a].getEmail().equals(user.getEmail())) {
+        for (User userEmail : users) {
+            if (userEmail.getEmail().equals(user.getEmail())) {
                 // EAU = Email Already Used
                 model.addAttribute("EAU", "An account with this email already exists!");
                 return "register";
             }
         }
-        if (userNumber > users.length -1) {
+        if (users.size() +1 > maxUsers) {
             //ULR = User Limit Reached
             model.addAttribute("ULR", "User limit reached!");
             return "register";
         } else {
             if (user.getGender().equals("")) {
-                users[userNumber] = new User(
+                users.add(new User(
                         user.getFname(),
                         user.getLname(),
                         user.getEmail(),
@@ -64,9 +65,9 @@ public class IndexController {
                         user.getPasswd2(),
                         user.getDob(),
                         "Not given"
-                );
+                ));
             } else {
-                users[userNumber] = new User(
+                users.add(new User(
                         user.getFname(),
                         user.getLname(),
                         user.getEmail(),
@@ -74,23 +75,22 @@ public class IndexController {
                         user.getPasswd2(),
                         user.getDob(),
                         user.getGender()
-                );
+                ));
             }
         }
-        System.out.println(users[userNumber].toString());
+        System.out.println(users.get(users.size() -1).toString());
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
-        userNumber += 1;
         return "welcome";
     }
 
 
     @RequestMapping("/loginInput")
     public String userLoginInput(@ModelAttribute LoginData login, Model model) {
-        for (int a = 0; a < userNumber; a++) {
-            if (users[a].getEmail().equals(login.getLogEmail()) && users[a].getPasswd().equals(login.getLogPasswd())){
-                model.addAttribute("firstname", users[a].getFname());
-                model.addAttribute("lastname", users[a].getLname());
+        for (User userLogin : users) {
+            if (userLogin.getEmail().equals(login.getLogEmail()) && userLogin.getPasswd().equals(login.getLogPasswd())){
+                model.addAttribute("firstname", userLogin.getFname());
+                model.addAttribute("lastname", userLogin.getLname());
                 return "welcome";
             }
         }
