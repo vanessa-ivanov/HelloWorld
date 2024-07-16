@@ -16,6 +16,7 @@ public class IndexController {
 
     int maxUsers = 2;
     List<User> users = new ArrayList<>();
+    User activeUser;
 
     @GetMapping("/")
     public String index() {
@@ -54,6 +55,7 @@ public class IndexController {
         System.out.println(users.get(users.size() -1).toString());
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
+        activeUser = user;
         return "welcome";
     }
 
@@ -99,6 +101,7 @@ public class IndexController {
             if (successfulLogin(login, userLogin)){
                 model.addAttribute("firstname", userLogin.getFname());
                 model.addAttribute("lastname", userLogin.getLname());
+                activeUser = userLogin;
                 return "welcome";
             }
         }
@@ -114,5 +117,19 @@ public class IndexController {
     @RequestMapping("/login")
     public String userLogin(){
         return "login";
+    }
+
+    @RequestMapping("/deleteAccount")
+    public String deleteAccount(String passwd, Model model){
+        System.out.println(activeUser);
+        if (passwd.equals(activeUser.getPasswd())){
+            users.remove(activeUser);
+            model.addAttribute("DS", "Deletion successful!");
+            return "register";
+        }
+        model.addAttribute("firstname", activeUser.getFname());
+        model.addAttribute("lastname", activeUser.getLname());
+        model.addAttribute("DF", "Check password!");
+        return "welcome";
     }
 }

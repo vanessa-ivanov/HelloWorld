@@ -9,5 +9,13 @@
     <h4>Welcome user:</h4>
     <h4 th:text=${firstname}>firstname</h4>
     <h4 th:text=${lastname}>lastname</h4>
+
+    <form action="deleteAccount" method="post">
+        <label for="passwd">Password :</label> <br/>
+        <input type="password" name="passwd" id="passwd"/> <br/>
+
+        <button type="submit">Delete Account</button>
+    </form>
+    <h3 th:text=${DF}>Check password!</h3>
 </body>
 </html>
