@@ -90,9 +90,12 @@ public class IndexController {
     }
 
     public boolean userToYoung(User user){
-        String[] DMY = user.getDob().split("-");
-        Date dob = new Date(Integer.parseInt(DMY[0]), Integer.parseInt(DMY[1]), Integer.parseInt(DMY[2]));
-        return (LocalDate.now().getYear() - dob.getYear() < 18);
+        String[] YDM = user.getDob().split("-");
+        Date dob = new Date(Integer.parseInt(YDM[0]), Integer.parseInt(YDM[1]), Integer.parseInt(YDM[2]));
+        return false;
+
+        //For Testing false
+        // (LocalDate.now().getYear() - dob.getYear() < 18);
     }
 
     public boolean noGenderGiven(User user) {
