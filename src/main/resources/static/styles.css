@@ -36,6 +36,9 @@ label{
 input{
     margin: 5px;
 }
+select{
+    margin: 5px;
+}
 #navigation{
         border-style: solid;
         border-width: 0px 3px 3px 3px;
@@ -44,7 +47,4 @@ input{
         margin: auto;
         max-width: 800px;
         min-width; 600px;
-}
-#center{
-   align-items: center;
 }
