@@ -1,40 +1,42 @@
 package com.interns.simpleApp.model;
 
-import javax.print.attribute.standard.MediaSize;
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Vacation {
-    private LocalDate start;
-    private LocalDate end;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String person;
     private static List<Vacation> vacations = new ArrayList<>();
 
-    public Vacation (LocalDate start, LocalDate end){
-        this.start = start;
-        this.end = end;
+    public Vacation (LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     // WHAT IF END OF ONE AND START OF OTHER ON THE SAME DAY?
-    public boolean overlaps(Vacation vacation){
+    public boolean overlaps(Vacation vacation) {
         for (Vacation other : vacations){
-            if (vacation.start.isAfter(other.start) && vacation.start.isBefore(other.end)
-            || vacation.end.isAfter(other.start) && vacation.end.isBefore(other.end)){
+            if (vacation.startDate.isAfter(other.startDate) && vacation.startDate.isBefore(other.endDate)
+            || vacation.endDate.isAfter(other.startDate) && vacation.endDate.isBefore(other.endDate)){
                 return true;
             }
         }
         return false;
     }
 
-    public int durationInDays(Vacation vacation){
-        Period period = Period.between(vacation.start, vacation.end);
+    public int durationInDays(Vacation vacation) {
+        Period period = Period.between(vacation.startDate, vacation.endDate);
         return period.getDays();
     }
 
-    public static void addVacation (Vacation vacation){
+    public static void addVacation (Vacation vacation) {
         vacations.add(vacation);
+    }
+
+    public static void removeVacation (Vacation vacation) {
+        vacations.remove(vacation);
     }
 }
