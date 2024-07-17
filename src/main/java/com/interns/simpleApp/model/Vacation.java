@@ -30,4 +30,14 @@ public class Vacation {
     public LocalDate getEndDate() {
         return endDate;
     }
+
+    public boolean vacationInputImpossible() {
+        if (startDate.isAfter(endDate)){
+            return true;
+        }
+        if (startDate.isBefore(LocalDate.now())){
+            return true;
+        }
+        return false;
+    }
 }

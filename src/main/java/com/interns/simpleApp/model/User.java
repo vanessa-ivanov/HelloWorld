@@ -47,12 +47,8 @@ public class User {
         return passwd2;
     }
 
-    public void addVacation(String start, String end) {
-        String[] sd = start.split("-");
-        LocalDate startDate = LocalDate.of(Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
-        String[] ed = end.split("-");
-        LocalDate endDate = LocalDate.of(Integer.parseInt(ed[0]), Integer.parseInt(ed[1]), Integer.parseInt(ed[2]));
-        vacations.add(new Vacation(startDate, endDate));
+    public void addVacation(Vacation vacation) {
+        vacations.add(vacation);
     }
 
     public void printVacations() {

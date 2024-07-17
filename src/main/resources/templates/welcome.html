@@ -13,20 +13,27 @@
         <h2 th:text=${lastname}>lastname</h2>
     </header>
     <main>
-    <form action="deleteAccount" method="post" style="bre">
-        <label for="passwd">Password :</label> <br/>
-        <input type="password" name="passwd" id="passwd"/> <br/>
+        <form action="deleteAccount" method="post" style="bre">
+            <label for="passwd">Password :</label> <br/>
+            <input type="password" name="passwd" id="passwd"/> <br/>
 
-        <button type="submit">Delete Account</button>
-    </form>
-    <h2 class="error" th:text=${DF}>Check password!</h2>
-    <p/>
-    <form action="register" method="post">
-        <button type="submit">Back to registration</button>
-    </form>
-    <form action="login" method="post">
-        <button type="submit">Back to login</button>
-    </form>
+            <button type="submit">Delete Account</button>
+        </form>
+        <h2 class="error" th:text=${DF}>Check password!</h2>
+        <p/>
+        <form action="register" method="post">
+            <button type="submit">Back to registration</button>
+        </form>
+        <form action="login" method="post">
+            <button type="submit">Back to login</button>
+        </form>
+            <form action="addVacation" method="post">
+            <label for="start">From: </label> <br/>
+            <input type="date" name="start" id="start"/> <br/>
+            <label for="end">To:</label> <br/>
+            <input type="date" name="end" id="end"/> <br/>
+        <button type="submit">Add vacation</button>
+        </form>
     </main>
 </body>
 </html>

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class IndexController {
@@ -64,6 +63,7 @@ public class IndexController {
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
         activeUser = user;
+        activeUser.printVacations();
         return "welcome";
     }
 
@@ -158,8 +158,21 @@ public class IndexController {
 
     @RequestMapping("/addVacation")
     public String addVacation(String start, String end) {
-        activeUser.addVacation(start, end);
-        activeUser.printVacations();
+        Vacation vacation = vacationFormat(start, end);
+        if (vacation.vacationInputImpossible()){
+            System.out.println("Vacation impossible!");
+        } else {
+            activeUser.addVacation(vacation);
+            activeUser.printVacations();
+        }
         return "welcome";
+    }
+
+    public Vacation vacationFormat(String start, String end) {
+        String[] sd = start.split("-");
+        LocalDate startDate = LocalDate.of(Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
+        String[] ed = end.split("-");
+        LocalDate endDate = LocalDate.of(Integer.parseInt(ed[0]), Integer.parseInt(ed[1]), Integer.parseInt(ed[2]));
+        return new Vacation(startDate, endDate);
     }
 }
