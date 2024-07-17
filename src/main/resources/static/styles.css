@@ -9,7 +9,7 @@ h3 {
   font-family: arial, sans-serif;
 }
 button {
-  width: 100px;
+  width: auto;
   background-color: lightgrey;
   margin: 10px;
   border-size: 3px;
@@ -47,4 +47,8 @@ select{
         margin: auto;
         max-width: 800px;
         min-width; 600px;
+}
+.error{
+    color: #ff0000;
+    text-shadow: 1px 1px black;
 }
