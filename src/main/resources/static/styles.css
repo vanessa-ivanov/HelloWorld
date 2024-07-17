@@ -1,7 +1,7 @@
 h1 {
   color:#grey;
   font-size:28pt;
-  font-family:arial, "lucida console", sans-serif;
+  font-family:arial, sans-serif;
 }
 button {
   width: 100px;
@@ -10,4 +10,7 @@ button {
   border-size: 3px;
   border-radius: 5px;
   font-size: 20px;
+}
+#a1Logo {
+    width: 170px;
 }
