@@ -119,6 +119,7 @@ public class IndexController {
                 model.addAttribute("firstname", userLogin.getFname());
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
+                activeUser.printVacations();
                 return "welcome";
             }
         }
@@ -156,13 +157,9 @@ public class IndexController {
     }
 
     @RequestMapping("/addVacation")
-    public void addVacation(String start, String end) {
-        String[] sd = start.split("-");
-        Date startDate = new Date (Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
-        String[] ed = end.split("-");
-        Date.
-
-
-        }
+    public String addVacation(String start, String end) {
+        activeUser.addVacation(start, end);
+        activeUser.printVacations();
+        return "welcome";
     }
 }

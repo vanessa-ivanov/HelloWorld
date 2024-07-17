@@ -6,7 +6,6 @@ import java.time.Period;
 public class Vacation {
     private LocalDate startDate;
     private LocalDate endDate;
-    private String person;
 
     public Vacation (LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
@@ -21,8 +20,14 @@ public class Vacation {
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+    public LocalDate getEndDate() {
+        return endDate;
     }
 }

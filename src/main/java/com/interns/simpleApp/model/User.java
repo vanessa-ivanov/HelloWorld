@@ -1,5 +1,10 @@
 package com.interns.simpleApp.model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.time.format.DateTimeFormatter;
+
 public class User {
     private String fname;
     private String lname;
@@ -8,6 +13,7 @@ public class User {
     private String passwd2;
     private String dob;
     private String gender;
+    private List<Vacation> vacations = new ArrayList<>();
 
     public User(String fname, String lname, String email, String passwd, String passwd2, String dob, String gender) {
         this.fname = fname;
@@ -39,6 +45,27 @@ public class User {
     }
     public String getPasswd2() {
         return passwd2;
+    }
+
+    public void addVacation(String start, String end) {
+        String[] sd = start.split("-");
+        LocalDate startDate = LocalDate.of(Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
+        String[] ed = end.split("-");
+        LocalDate endDate = LocalDate.of(Integer.parseInt(ed[0]), Integer.parseInt(ed[1]), Integer.parseInt(ed[2]));
+        vacations.add(new Vacation(startDate, endDate));
+    }
+
+    public void printVacations() {
+        if (vacations.size() == 0){
+            System.out.println("no vacations");
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            for (Vacation vacation : vacations){
+                System.out.println("Start: " + vacation.getStartDate().format(formatter)
+                        + "| End: " + vacation.getEndDate().format(formatter)
+                        + "| Duration in Days: " + vacation.durationInDays(vacation));
+            }
+        }
     }
 
     @Override
