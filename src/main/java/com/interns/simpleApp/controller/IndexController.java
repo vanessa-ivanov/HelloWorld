@@ -2,6 +2,7 @@ package com.interns.simpleApp.controller;
 
 import com.interns.simpleApp.model.LoginData;
 import com.interns.simpleApp.model.User;
+import com.interns.simpleApp.model.Vacation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class IndexController {
@@ -151,5 +153,16 @@ public class IndexController {
     @RequestMapping("/index")
     public String navigateToIndex() {
         return "index";
+    }
+
+    @RequestMapping("/addVacation")
+    public void addVacation(String start, String end) {
+        String[] sd = start.split("-");
+        Date startDate = new Date (Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
+        String[] ed = end.split("-");
+        Date.
+
+
+        }
     }
 }
