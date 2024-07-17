@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h4>Welcome user:</h4>
-    <h4 th:text=${firstname}>firstname</h4>
-    <h4 th:text=${lastname}>lastname</h4>
-
-    <form action="deleteAccount" method="post">
+    <header>
+        <h2>Welcome user:</h2>
+        <h2 th:text=${firstname}>firstname</h2>
+        <h2 th:text=${lastname}>lastname</h2>
+    </header>
+    <main>
+    <form action="deleteAccount" method="post" style="bre">
         <label for="passwd">Password :</label> <br/>
         <input type="password" name="passwd" id="passwd"/> <br/>
 
@@ -25,5 +27,6 @@
     <form action="login" method="post">
         <button type="submit">Back to login</button>
     </form>
+    </main>
 </body>
 </html>
