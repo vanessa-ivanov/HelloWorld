@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+<form action="registerInput" method="post">
+    <label for="fname">First name :</label> <br/>
+    <input type="text" name="fname" id="fname"/> <br/>
+
+    <label for="lname">Last name :</label> <br/>
+    <input type="text" name="lname" id="lname"/> <br/>
+
+    <label for="email">Email :</label> <br/>
+    <input type="email" name="email" id="email"/> <br/>
+
+    <label for="dob">DoB :</label> <br/>
+    <input type="date" name="dob" id="dob"/> <br/>
+
+    <label for="passwd">Password :</label> <br/>
+    <input type="password" name="passwd" id="passwd"/> <br/>
+
+    <label for="gender">Gender :</label> <br/>
+    <select name="gender" id="gender">
+        <option value=""></option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+    <br/>
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>

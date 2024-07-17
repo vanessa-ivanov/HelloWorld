@@ -1,13 +1,13 @@
-package com.interns.simpleApp;
+package com.example.demo;
 
+import com.example.demo.controller.IndexController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SimpleAppApplication {
+public class DemoApplication {
+
 	public static void main(String[] args) {
-		SpringApplication.run(SimpleAppApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
-
-
 }

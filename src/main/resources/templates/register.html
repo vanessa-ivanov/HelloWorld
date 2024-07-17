@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmln:th=www.thymeleaf.org xmlns:xmln="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+    <h1>Create a new account</h1>
+    <form action="registerInput" method="post">
+        <label for="fname">First name :</label> <br/>
+        <input type="text" name="fname" id="fname"/> <br/>
+
+        <label for="lname">Last name :</label> <br/>
+        <input type="text" name="lname" id="lname"/> <br/>
+
+        <label for="email">Email :</label> <br/>
+        <input type="email" name="email" id="email"/> <br/>
+
+        <label for="dob">DoB :</label> <br/>
+        <input type="date" name="dob" id="dob"/> <br/>
+
+        <label for="passwd">Password :</label> <br/>
+        <input type="password" name="passwd" id="passwd"/> <br/>
+
+        <label for="passwd2">Verify password :</label> <br/>
+        <input type="password" name="passwd2" id="passwd2"/> <br/>
+
+        <label for="gender">Gender (OPTIONAL):</label> <br/>
+        <select name="gender" id="gender">
+            <option value=""></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select> <br/>
+        <button type="submit">Register</button>
+    </form>
+    <form action="register" method="post">
+        <button type="submit">Clear</button>
+    </form>
+    <h3 th:text=${PDM}>Passwords don´t match</h3>
+    <h3 th:text=${NOI}>Non-optional input</h3>
+    <h3 th:text=${EAU}>Email already used</h3>
+    <h3 th:text=${ULR}>User limit reached</h3>
+    <h3 th:text=${DS}>Account deleted successfully</h3>
+    <h3 th:text=${TY}>You have to be at least 18 years old!</h3>
+    <p/>
+    <h3>Already have an account?</h3>
+    <form action="login" method="post">
+        <button type="submit">Login</button>
+    </form>
+    <h3>or</h3>
+    <form action="index" method="post">
+        <button type="submit">Back to start</button>
+    </form>
+</body>
+</html>

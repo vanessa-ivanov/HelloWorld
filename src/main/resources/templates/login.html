@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<h1>Login an existing account</h1>
+<form action="loginInput" method="post">
+    <label for="logEmail">Email :</label> <br/>
+    <input type="email" name="logEmail" id="logEmail"/> <br/>
+
+    <label for="logPasswd">Password :</label> <br/>
+    <input type="password" name="logPasswd" id="logPasswd"/> <br/>
+    <button type="submit">Login</button>
+</form>
+<form action="login" method="post">
+    <button type="submit">Clear</button>
+</form>
+    <h3 th:text=${NSA}>No such account</h3>
+    <p/>
+    <h3>Don´t have an account?</h3>
+    <form action="register" method="post">
+        <button type="submit">Register</button>
+    </form>
+    <h3>or</h3>
+    <form action="index" method="post">
+        <button type="submit">Back to start</button>
+    </form>
+</body>
+</html>
