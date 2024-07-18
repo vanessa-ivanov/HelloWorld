@@ -34,15 +34,15 @@ button {
     max-width: 800px;
     min-width; 600px;
 }
-label{
+label {
     font-size: 20px;
     font-family:arial, sans-serif;
     margin: 5px;
 }
-input{
+input {
     margin: 5px;
 }
-select{
+select {
     margin: 5px;
 }
 #navigation{
@@ -54,12 +54,21 @@ select{
     max-width: 800px;
     min-width; 600px;
 }
-.error{
+.error {
     color: #ff0000;
     text-shadow: 1px 1px black;
 }
-header{
+header {
     display: flex;
     justify-content: left;
     align-items: center;
+}
+#start {
+    background: url(https://wallpaperswide.com/download/exotic_vacation-wallpaper-2400x1350.jpg);
+}
+#startOptions {
+    background-color: white;
+    padding: 10px;
+    min-width: 500px;
+    max-width: 600px;
 }
