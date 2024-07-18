@@ -8,11 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Controller
 public class IndexController {
@@ -21,8 +25,14 @@ public class IndexController {
     List<User> users = new ArrayList<>();
     User activeUser;
 
+    Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+
     @GetMapping("/")
     public String index() {
+        logger.setLevel(Level.ALL);
+        logger.info("USER ENTERED START PAGE");
+
         return "index";
     }
 
@@ -33,37 +43,45 @@ public class IndexController {
 
     @RequestMapping("/registerInput")
     public String userRegistrationInput(@ModelAttribute User user, Model model) {
+        logger.setLevel(Level.ALL);
+        logger.info("USER TRYING TO REGISTER");
         if (nonOptionalInputMissing(user)) {
             //NOI = Non-Optional Input
             model.addAttribute("NOI", "Please fill all non-optional boxes!");
+            logger.warning("REGISTER FAILED!");
             return "register";
         }
         if  (passwordsDontMatch(user)) {
             //PDM = Passwords Don´t Match
             model.addAttribute("PDM", "Passwords don´t match!");
+            logger.warning("REGISTER FAILED!");
             return "register";
         }
         if (emailAlreadyUsed(user)) {
             // EAU = Email Already Used
             model.addAttribute("EAU", "An account with this email already exists!");
+            logger.warning("REGISTER FAILED!");
             return "register";
         }
         if (userToYoung(user)){
             model.addAttribute("TY", "You have to be at least 18 years old!");
+            logger.warning("REGISTER FAILED!");
             return "register";
         }
         if (userLimitReached()) {
             //ULR = User Limit Reached
             model.addAttribute("ULR", "User limit reached!");
+            logger.warning("REGISTER FAILED!");
             return "register";
         }
 
+        logger.info("REGISTER COMPLETE!");
         addUser(user);
         System.out.println(users.get(users.size() -1).toString());
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
         activeUser = user;
-        activeUser.printVacations();
+        activeUser.printUserVacations();
         return "welcome";
     }
 
@@ -114,17 +132,21 @@ public class IndexController {
 
     @RequestMapping("/loginInput")
     public String userLoginInput(@ModelAttribute LoginData login, Model model) {
+        logger.setLevel(Level.ALL);
+        logger.info("USER TRYING TO LOGIN");
         for (User userLogin : users) {
             if (successfulLogin(login, userLogin)) {
                 model.addAttribute("firstname", userLogin.getFname());
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
-                activeUser.printVacations();
+                activeUser.printUserVacations();
+                logger.info("LOGIN COMPLETE");
                 return "welcome";
             }
         }
         //NSA = No Such Account
         model.addAttribute("NSA", "No such account!");
+        logger.warning("LOGIN FAILED");
         return "login";
     }
 
@@ -139,15 +161,19 @@ public class IndexController {
 
     @RequestMapping("/deleteAccount")
     public String deleteAccount(String passwd, Model model) {
+        logger.setLevel(Level.ALL);
+        logger.info("USER TRYING TO DELETE ACCOUNT");
         System.out.println(activeUser);
         if (passwd.equals(activeUser.getPasswd())) {
             users.remove(activeUser);
             model.addAttribute("DS", "Account deleted successfully");
+            logger.info("ACCOUNT DELETED");
             return "register";
         }
         model.addAttribute("firstname", activeUser.getFname());
         model.addAttribute("lastname", activeUser.getLname());
         model.addAttribute("DF", "Check password!");
+        logger.warning("DELETION FAILED");
         return "welcome";
     }
 
@@ -157,13 +183,14 @@ public class IndexController {
     }
 
     @RequestMapping("/addVacation")
-    public String addVacation(String start, String end) {
+    public String addVacation(String start, String end, Model model) {
         Vacation vacation = vacationFormat(start, end);
         if (vacation.vacationInputImpossible()){
             System.out.println("Vacation impossible!");
         } else {
             activeUser.addVacation(vacation);
-            activeUser.printVacations();
+            activeUser.printUserVacations();
+            model.addAttribute("Vacations", convertListToHtmlTable(activeUser.getVacations()));
         }
         return "welcome";
     }
@@ -174,5 +201,16 @@ public class IndexController {
         String[] ed = end.split("-");
         LocalDate endDate = LocalDate.of(Integer.parseInt(ed[0]), Integer.parseInt(ed[1]), Integer.parseInt(ed[2]));
         return new Vacation(startDate, endDate);
+    }
+
+    public String convertListToHtmlTable(List<Vacation> vacations) {
+        StringBuilder html = new StringBuilder();
+        html.append("<table>\n");
+        html.append("  <tr><th>Your Vacations</th></tr>\n"); // Optional: Header row
+        for (Vacation vacation : activeUser.getVacations()) {
+            html.append("  <tr><td>").append(activeUser.vacationStringFormat(vacation)).append("</td></tr>\n");
+        }
+        html.append("</table>");
+        return html.toString();
     }
 }
