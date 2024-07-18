@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>register</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="input">
     <h1>Create a new account</h1>
     <form action="registerInput" method="post">
         <label for="fname">First name :</label> <br/>
@@ -38,12 +40,14 @@
     <form action="register" method="post">
         <button type="submit">Clear</button>
     </form>
-    <h3 th:text=${PDM}>Passwords don´t match</h3>
-    <h3 th:text=${NOI}>Non-optional input</h3>
-    <h3 th:text=${EAU}>Email already used</h3>
-    <h3 th:text=${ULR}>User limit reached</h3>
-    <h3 th:text=${DS}>Account deleted successfully</h3>
-    <h3 th:text=${TY}>You have to be at least 18 years old!</h3>
+    <h2 class="error" th:text=${PDM}>Passwords don´t match</h2>
+    <h2 class="error" th:text=${NOI}>Non-optional input</h2>
+    <h2 class="error" th:text=${EAU}>Email already used</h2>
+    <h2 class="error" th:text=${ULR}>User limit reached</h2>
+    <h2 class="error" th:text=${DS}>Account deleted successfully</h2>
+    <h2 class="error" th:text=${TY}>You have to be at least 18 years old!</h2>
+</div>
+<div id="navigation">
     <p/>
     <h3>Already have an account?</h3>
     <form action="login" method="post">
@@ -53,5 +57,6 @@
     <form action="index" method="post">
         <button type="submit">Back to start</button>
     </form>
+</div>
 </body>
 </html>

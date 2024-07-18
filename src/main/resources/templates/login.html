@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="input">
 <h1>Login an existing account</h1>
 <form action="loginInput" method="post">
     <label for="logEmail">Email :</label> <br/>
@@ -17,7 +19,9 @@
 <form action="login" method="post">
     <button type="submit">Clear</button>
 </form>
-    <h3 th:text=${NSA}>No such account</h3>
+    <h2 class="error" th:text=${NSA}>No such account</h2>
+</div>
+<div id="navigation">
     <p/>
     <h3>Don´t have an account?</h3>
     <form action="register" method="post">
@@ -27,5 +31,6 @@
     <form action="index" method="post">
         <button type="submit">Back to start</button>
     </form>
+</div>
 </body>
 </html>

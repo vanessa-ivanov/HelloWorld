@@ -1,5 +1,9 @@
 package com.interns.simpleApp.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.time.format.DateTimeFormatter;
+
 public class User {
     private String fname;
     private String lname;
@@ -8,6 +12,7 @@ public class User {
     private String passwd2;
     private String dob;
     private String gender;
+    private List<Vacation> vacations = new ArrayList<>();
 
     public User(String fname, String lname, String email, String passwd, String passwd2, String dob, String gender) {
         this.fname = fname;
@@ -22,44 +27,50 @@ public class User {
     public String getFname() {
         return fname;
     }
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
     public String getLname() {
         return lname;
-    }
-    public void setLname(String lname) {
-        this.lname = lname;
     }
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) {
-        this.email = email;
-    }
     public String getPasswd() {
         return passwd;
-    }
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
     }
     public String getDob() {
         return dob;
     }
-    public void setDob(String dob) {
-        this.dob = dob;
-    }
     public String getGender() {
         return gender;
-    }
-    public void setGender(String gender) {
-        this.gender = gender;
     }
     public String getPasswd2() {
         return passwd2;
     }
-    public void setPasswd2(String passwd2) {
-        this.passwd2 = passwd2;
+    public List<Vacation> getVacations() {
+        return vacations;
+    }
+
+    public void addVacation(Vacation vacation) {
+        vacations.add(vacation);
+    }
+
+    public void printUserVacations() {
+        if (vacations.size() == 0){
+            System.out.println("no vacations");
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            for (Vacation vacation : vacations){
+                System.out.println("Start: " + vacation.getStartDate().format(formatter)
+                        + "| End: " + vacation.getEndDate().format(formatter)
+                        + "| Duration in Days: " + vacation.durationInDays(vacation));
+            }
+        }
+    }
+
+    public String vacationStringFormat(Vacation vacation) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            return "Start: " + vacation.getStartDate().format(formatter)
+                    + "| End: " + vacation.getEndDate().format(formatter)
+                    + "| Duration in Days: " + vacation.durationInDays(vacation);
     }
 
     @Override

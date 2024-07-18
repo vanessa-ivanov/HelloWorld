@@ -1,13 +1,65 @@
 h1 {
-  color:#grey;
-  font-size:28pt;
-  font-family:arial, "lucida console", sans-serif;
+    color: #grey;
+    font-size: 28pt;
+    font-family: arial, sans-serif;
+}
+h2 {
+    color: #grey;
+    margin: 5px 5px 20px 5px;
+    font-size: 24pt;
+    font-family: arial, sans-serif;
+}
+h3 {
+    color: #grey;
+    font-size: 20pt;
+    font-family: arial, sans-serif;
 }
 button {
-  width: 100px;
-  background-color: lightgrey;
-  margin: 5px;
-  border-size: 3px;
-  border-radius: 5px;
-  font-size: 20px;
+    width: auto;
+    background-color: lightgrey;
+    margin: 10px;
+    border-size: 3px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+#a1Logo {
+    width: 170px;
+}
+#input {
+    border-style: solid;
+    border-size: 3px;
+    border-color: black;
+    padding: 10px;
+    margin: auto;
+    max-width: 800px;
+    min-width; 600px;
+}
+label{
+    font-size: 20px;
+    font-family:arial, sans-serif;
+    margin: 5px;
+}
+input{
+    margin: 5px;
+}
+select{
+    margin: 5px;
+}
+#navigation{
+    border-style: solid;
+    border-width: 0px 3px 3px 3px;
+    border-color: black;
+    padding: 10px;
+    margin: auto;
+    max-width: 800px;
+    min-width; 600px;
+}
+.error{
+    color: #ff0000;
+    text-shadow: 1px 1px black;
+}
+header{
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
