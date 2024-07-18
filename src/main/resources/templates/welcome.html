@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>welcome</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -32,12 +34,47 @@
             <input type="date" name="start" id="start"/> <br/>
             <label for="end">To:</label> <br/>
             <input type="date" name="end" id="end"/> <br/>
-            <button type="submit">Add vacation</button>
-                <table>
-  <tr><th>Your Vacations</th></tr>
-  <tr><td>Start: 19.07.2024| End: 26.07.2024| Duration in Days: 7</td></tr>
-</table>
+        <button type="submit">Add vacation</button>
         </form>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Birthday</th>
+            </tr>
+
+            <tbody id="myTable">
+
+            </tbody>
+        </table>
+
+        <script>
+            var vacations = [
+                {'start':'20-7-2024', 'end':'27-7-2024', 'duration':'7'},
+                {'start':'30-7-2024', 'end':'6-8-2024', 'duration':'7'},
+                {'start':'10-8-2024', 'end':'24-8-2024', 'duration':'14'},
+                {'start':'27-8-2024', 'end':'30-8-2024', 'duration':'3'},
+
+            ]
+
+            buildTable(vacations)
+
+            function buildTable(data){
+                var table = document.getElementById('myTable')
+
+                for (var i = 0; i < data.length; i++){
+                    var row = `<tr>
+                                    <td>${data[i].start}</td>
+                                    <td>${data[i].end}</td>
+                                    <td>${data[i].duration}</td>
+                              </tr>`
+                    table.innerHTML += row
+
+
+                }
+            }
+
+        </script>
     </main>
-</body>
+    </body>
 </html>
