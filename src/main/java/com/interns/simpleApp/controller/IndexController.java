@@ -196,9 +196,7 @@ public class IndexController {
         } else {
             activeUser.addVacation(vacation);
             activeUser.printUserVacations();
-            model.addAttribute("Vacations", convertListToHtmlTable(activeUser.getVacations()));
         }
-        updateHtmlTable();
         return "welcome";
     }
 
@@ -221,16 +219,5 @@ public class IndexController {
 
         html.append("</table>");
         return html.toString();
-    }
-
-    public void updateHtmlTable() throws IOException {
-        String htmlTable = convertListToHtmlTable(activeUser.getVacations());
-        String existingHtml = new String(Files.readAllBytes(Paths.get("src/main/resources/templates/welcome.html")));
-        String updatedHtml = existingHtml.replace("<!-- TABLE_PLACEHOLDER -->", htmlTable);
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/templates/welcome.html"));
-        writer.write(updatedHtml);
-        writer.close();
-        System.out.println("HTML file updated successfully.");
     }
 }
