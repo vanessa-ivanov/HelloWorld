@@ -8,6 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -183,7 +189,7 @@ public class IndexController {
     }
 
     @RequestMapping("/addVacation")
-    public String addVacation(String start, String end, Model model) {
+    public String addVacation(String start, String end, Model model) throws IOException {
         Vacation vacation = vacationFormat(start, end);
         if (vacation.vacationInputImpossible()){
             System.out.println("Vacation impossible!");
@@ -192,6 +198,7 @@ public class IndexController {
             activeUser.printUserVacations();
             model.addAttribute("Vacations", convertListToHtmlTable(activeUser.getVacations()));
         }
+        updateHtmlTable();
         return "welcome";
     }
 
@@ -205,12 +212,25 @@ public class IndexController {
 
     public String convertListToHtmlTable(List<Vacation> vacations) {
         StringBuilder html = new StringBuilder();
-        html.append("<table>\n");
-        html.append("  <tr><th>Your Vacations</th></tr>\n"); // Optional: Header row
-        for (Vacation vacation : activeUser.getVacations()) {
+        html.append("<table border='1'>\n");
+        html.append("  <tr><th>Items</th></tr>\n");
+
+        for (Vacation vacation : vacations) {
             html.append("  <tr><td>").append(activeUser.vacationStringFormat(vacation)).append("</td></tr>\n");
         }
+
         html.append("</table>");
         return html.toString();
+    }
+
+    public void updateHtmlTable() throws IOException {
+        String htmlTable = convertListToHtmlTable(activeUser.getVacations());
+        String existingHtml = new String(Files.readAllBytes(Paths.get("src/main/resources/templates/welcome.html")));
+        String updatedHtml = existingHtml.replace("<!-- TABLE_PLACEHOLDER -->", htmlTable);
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/templates/welcome.html"));
+        writer.write(updatedHtml);
+        writer.close();
+        System.out.println("HTML file updated successfully.");
     }
 }
