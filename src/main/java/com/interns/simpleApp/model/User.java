@@ -1,6 +1,5 @@
 package com.interns.simpleApp.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
@@ -46,12 +45,15 @@ public class User {
     public String getPasswd2() {
         return passwd2;
     }
+    public List<Vacation> getVacations() {
+        return vacations;
+    }
 
     public void addVacation(Vacation vacation) {
         vacations.add(vacation);
     }
 
-    public void printVacations() {
+    public void printUserVacations() {
         if (vacations.size() == 0){
             System.out.println("no vacations");
         } else {
@@ -62,6 +64,13 @@ public class User {
                         + "| Duration in Days: " + vacation.durationInDays(vacation));
             }
         }
+    }
+
+    public String vacationStringFormat(Vacation vacation) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            return "Start: " + vacation.getStartDate().format(formatter)
+                    + "| End: " + vacation.getEndDate().format(formatter)
+                    + "| Duration in Days: " + vacation.durationInDays(vacation);
     }
 
     @Override
