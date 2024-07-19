@@ -182,6 +182,11 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/shop")
+    public String navigateToShop() {
+        return "shop";
+    }
+
     @RequestMapping("/addVacation")
     public String addVacation(String start, String end, Model model) {
         Vacation vacation = vacationFormat(start, end);
