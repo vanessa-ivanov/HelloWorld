@@ -28,7 +28,7 @@ public class IndexController {
     Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String index() {
         logger.setLevel(Level.ALL);
         logger.info("USER ENTERED START PAGE");
