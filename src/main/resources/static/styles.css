@@ -1,16 +1,16 @@
 h1 {
-    color: #grey;
+    color: grey;
     font-size: 28pt;
     font-family: arial, sans-serif;
 }
 h2 {
-    color: #grey;
+    color: grey;
     margin: 5px 5px 20px 5px;
     font-size: 24pt;
     font-family: arial, sans-serif;
 }
 h3 {
-    color: #grey;
+    color: grey;
     font-size: 20pt;
     font-family: arial, sans-serif;
 }
@@ -32,7 +32,7 @@ button {
     padding: 10px;
     margin: auto;
     max-width: 800px;
-    min-width; 600px;
+    min-width: 600px;
 }
 label{
     font-size: 20px;
@@ -52,7 +52,7 @@ select{
     padding: 10px;
     margin: auto;
     max-width: 800px;
-    min-width; 600px;
+    min-width: 600px;
 }
 .error{
     color: #ff0000;

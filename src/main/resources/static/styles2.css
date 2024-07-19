@@ -1,0 +1,58 @@
+.logo{
+    float: left;
+    width: 5%;
+    height: 5%;
+    border-radius: 50%;
+    padding: 1%;
+}
+header{
+    width: 100%;
+    height: 10%;
+    background-color: #F77772;
+    padding: 0%;
+    margin: 0%;
+    display: flex;
+    align-items: center;
+}
+h1{
+    color: black;
+    font-family: arial, sans-serif;
+    padding: 2%;
+    margin: 0%;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 4%; /* Adjust margin as needed */
+}
+
+input[type=text] {
+    padding: 1%;
+    font-size: 17px;
+    border: 1px solid black;
+    border-radius: 4px;
+    float: right;
+    margin-left: 80%;
+    height: 40px;
+}
+
+button[type=submit] {
+    padding: 1%;
+    font-size: 17px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    margin-left: 2%;
+    height: 45px;
+    width: 45px;
+}
+
+button[type=submit]:hover {
+    background-color: white;
+
+}
+body{
+    background: #EDB0A4;
+}
