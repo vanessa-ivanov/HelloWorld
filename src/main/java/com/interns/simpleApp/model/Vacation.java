@@ -14,7 +14,7 @@ public class Vacation {
 
     public int durationInDays() {
         Period period = Period.between(startDate, endDate);
-        return period.getDays();
+        return period.getDays() +1;
     }
 
     public void setStartDate(LocalDate startDate) {

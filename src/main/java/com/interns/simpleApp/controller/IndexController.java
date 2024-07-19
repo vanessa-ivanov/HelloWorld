@@ -184,13 +184,21 @@ public class IndexController {
 
     @RequestMapping("/addVacation")
     public String addVacation(String start, String end, Model model) throws IOException {
-        Vacation vacation = vacationFormat(start, end);
-        if (vacation.vacationInputImpossible()){
-            System.out.println("Vacation impossible!");
+        if (vacationInputEmpty(start, end)) {
+            model.addAttribute("VIE", "Fill in all data!");
         } else {
-            activeUser.addVacation(vacation);
+            Vacation vacation = vacationFormat(start, end);
+            if (vacation.vacationInputImpossible()) {
+                model.addAttribute("CI", "Check input!");
+            } else if (overlappingVacations(vacation)) {
+                model.addAttribute("VO", "Vacations overlapping!");
+            } else {
+                activeUser.addVacation(vacation);
+            }
         }
         model.addAttribute("vacations", activeUser.getVacations());
+        model.addAttribute("firstname", activeUser.getFname());
+        model.addAttribute("lastname", activeUser.getLname());
         return "welcome";
     }
 
@@ -211,6 +219,27 @@ public class IndexController {
             }
         }
         model.addAttribute("vacations", activeUser.getVacations());
+        model.addAttribute("firstname", activeUser.getFname());
+        model.addAttribute("lastname", activeUser.getLname());
         return "welcome";
+    }
+
+    public boolean overlappingVacations(Vacation vacation) {
+        //Check all vacations. How do you know which are free?
+        //for (User user : users) {
+            for (Vacation other : activeUser.getVacations()) {
+                if ((vacation.getStartDate().isBefore(other.getEndDate())
+                        && vacation.getStartDate().isAfter(other.getStartDate()))
+                        || (vacation.getEndDate().isBefore(other.getEndDate())
+                        && vacation.getEndDate().isAfter(other.getStartDate()))){
+                    return true;
+                }
+            }
+        //}
+        return false;
+    }
+
+    public boolean vacationInputEmpty(String start, String end) {
+        return (start.isEmpty() || end.isEmpty());
     }
 }
