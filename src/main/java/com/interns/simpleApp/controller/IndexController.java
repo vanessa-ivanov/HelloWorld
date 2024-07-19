@@ -8,19 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,7 +79,7 @@ public class IndexController {
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
         activeUser = user;
-        activeUser.printUserVacations();
+        model.addAttribute("vacations", activeUser.getVacations());
         return "welcome";
     }
 
@@ -119,7 +111,6 @@ public class IndexController {
         String[] YDM = user.getDob().split("-");
         Date dob = new Date(Integer.parseInt(YDM[0]), Integer.parseInt(YDM[1]), Integer.parseInt(YDM[2]));
         return false;
-
         //For Testing false
         // (LocalDate.now().getYear() - dob.getYear() < 18);
     }
@@ -145,8 +136,8 @@ public class IndexController {
                 model.addAttribute("firstname", userLogin.getFname());
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
-                activeUser.printUserVacations();
                 logger.info("LOGIN COMPLETE");
+                model.addAttribute("vacations", activeUser.getVacations());
                 return "welcome";
             }
         }
@@ -180,6 +171,7 @@ public class IndexController {
         model.addAttribute("lastname", activeUser.getLname());
         model.addAttribute("DF", "Check password!");
         logger.warning("DELETION FAILED");
+        model.addAttribute("vacations", activeUser.getVacations());
         return "welcome";
     }
 
@@ -195,8 +187,8 @@ public class IndexController {
             System.out.println("Vacation impossible!");
         } else {
             activeUser.addVacation(vacation);
-            activeUser.printUserVacations();
         }
+        model.addAttribute("vacations", activeUser.getVacations());
         return "welcome";
     }
 
@@ -206,18 +198,5 @@ public class IndexController {
         String[] ed = end.split("-");
         LocalDate endDate = LocalDate.of(Integer.parseInt(ed[0]), Integer.parseInt(ed[1]), Integer.parseInt(ed[2]));
         return new Vacation(startDate, endDate);
-    }
-
-    public String convertListToHtmlTable(List<Vacation> vacations) {
-        StringBuilder html = new StringBuilder();
-        html.append("<table border='1'>\n");
-        html.append("  <tr><th>Items</th></tr>\n");
-
-        for (Vacation vacation : vacations) {
-            html.append("  <tr><td>").append(activeUser.vacationStringFormat(vacation)).append("</td></tr>\n");
-        }
-
-        html.append("</table>");
-        return html.toString();
     }
 }

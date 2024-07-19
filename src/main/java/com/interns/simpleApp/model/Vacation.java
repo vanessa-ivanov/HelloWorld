@@ -12,8 +12,8 @@ public class Vacation {
         this.endDate = endDate;
     }
 
-    public int durationInDays(Vacation vacation) {
-        Period period = Period.between(vacation.startDate, vacation.endDate);
+    public int durationInDays() {
+        Period period = Period.between(startDate, endDate);
         return period.getDays();
     }
 

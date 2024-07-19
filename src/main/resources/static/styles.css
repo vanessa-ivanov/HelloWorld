@@ -32,7 +32,7 @@ button {
     padding: 10px;
     margin: auto;
     max-width: 800px;
-    min-width; 600px;
+    min-width: 600px;
 }
 label {
     font-size: 20px;
@@ -52,7 +52,7 @@ select {
     padding: 10px;
     margin: auto;
     max-width: 800px;
-    min-width; 600px;
+    min-width: 600px;
 }
 .error {
     color: #ff0000;
