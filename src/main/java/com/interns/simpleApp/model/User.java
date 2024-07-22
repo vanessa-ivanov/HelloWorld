@@ -61,17 +61,11 @@ public class User {
             for (Vacation vacation : vacations){
                 System.out.println("Start: " + vacation.getStartDate().format(formatter)
                         + "| End: " + vacation.getEndDate().format(formatter)
-                        + "| Duration in Days: " + vacation.durationInDays(vacation));
+                        + "| Duration in Days: " + vacation.durationInDays());
             }
         }
     }
 
-    public String vacationStringFormat(Vacation vacation) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            return "Start: " + vacation.getStartDate().format(formatter)
-                    + "| End: " + vacation.getEndDate().format(formatter)
-                    + "| Duration in Days: " + vacation.durationInDays(vacation);
-    }
 
     @Override
     public String toString() {

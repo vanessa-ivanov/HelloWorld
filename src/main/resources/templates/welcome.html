@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>welcome</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -13,7 +14,45 @@
         <h2 th:text=${lastname}>lastname</h2>
     </header>
     <main>
-        <form action="deleteAccount" method="post" style="bre">
+        <h3>Add vacation</h3>
+            <form action="addVacation" method="post">
+            <label for="start">From: </label> <br/>
+            <input type="date" name="start" id="start"/> <br/>
+            <label for="end">To:</label> <br/>
+            <input type="date" name="end" id="end"/> <br/>
+        <button type="submit">Add vacation</button>
+        </form>
+        <h2 class="error" th:text=${NEVD}>Not enough vacation days!</h2>
+        <h2 class="error" th:text=${CI}>Check input!</h2>
+        <h2 class="error" th:text=${VO}>Vacations overlapping!</h2>
+        <h2 class="error" th:text=${VIE}>Fill in all data!</h2>
+        <table>
+            <tr>
+                <th>Start:</th>
+                <th>End:</th>
+                <th>Duration (Days):</th>
+                <th>Action</th>
+            </tr>
+            <tbody>
+            <tr th:each="vacation : ${vacations}">
+                <td th:text="${vacation.getStartDate()}"></td>
+                <td th:text="${vacation.getEndDate()}"></td>
+                <td th:text="${vacation.durationInDays()}"></td>
+                <td>
+                    <form action="deleteVacation" method="post">
+                        <input type="hidden" name="startDate" th:value="${vacation.startDate}"/>
+                        <input type="hidden" name="endDate" th:value="${vacation.endDate}"/>
+                        <button type="submit" class="deleteButton">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>Vacation days left:</td>
+                <td th:text=${VDL}>0</td>
+            </tr>
+            </tbody>
+        </table>
+        <form action="deleteAccount" method="post">
             <label for="passwd">Password :</label> <br/>
             <input type="password" name="passwd" id="passwd"/> <br/>
 
@@ -27,14 +66,6 @@
         <form action="login" method="post">
             <button type="submit">Back to login</button>
         </form>
-            <form action="addVacation" method="post">
-            <label for="start">From: </label> <br/>
-            <input type="date" name="start" id="start"/> <br/>
-            <label for="end">To:</label> <br/>
-            <input type="date" name="end" id="end"/> <br/>
-            <button type="submit">Add vacation</button>
-                <h3 th:text=${Vacations}>Vacations</h3>
-        </form>
     </main>
-</body>
+    </body>
 </html>

@@ -1,16 +1,13 @@
 h1 {
-    color: #grey;
     font-size: 28pt;
     font-family: arial, sans-serif;
 }
 h2 {
-    color: #grey;
     margin: 5px 5px 20px 5px;
     font-size: 24pt;
     font-family: arial, sans-serif;
 }
 h3 {
-    color: #grey;
     font-size: 20pt;
     font-family: arial, sans-serif;
 }
@@ -32,34 +29,81 @@ button {
     padding: 10px;
     margin: auto;
     max-width: 800px;
-    min-width; 600px;
+    min-width: 600px;
 }
-label{
+label {
     font-size: 20px;
-    font-family:arial, sans-serif;
+    font-family: arial, sans-serif;
     margin: 5px;
 }
-input{
+input {
     margin: 5px;
 }
-select{
+select {
     margin: 5px;
 }
-#navigation{
+#navigation {
     border-style: solid;
     border-width: 0px 3px 3px 3px;
     border-color: black;
     padding: 10px;
     margin: auto;
     max-width: 800px;
-    min-width; 600px;
+    min-width: 600px;
 }
-.error{
+.error {
     color: #ff0000;
     text-shadow: 1px 1px black;
 }
-header{
+header {
     display: flex;
-    justify-content: left;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+}
+#startPage {
+    background: url(https://wallpaperswide.com/download/exotic_vacation-wallpaper-2400x1350.jpg) no-repeat right fixed;
+}
+#startOptions {
+    background-color: white;
+    padding: 10px;
+    min-width: 500px;
+    max-width: 600px;
+}
+.deleteButton {
+    font-size: 12px !important;
+    border-color: red;
+    background-color: white;
+}
+td, th {
+    padding: 5px;
+    min-width: 150px;
+    text-align: center;
+    vertical-align: middle;
+}
+tr {
+    display: flex;
+    align-items: center;
+}
+th {
+    margin: 0;
+    padding: 5px;
+    background-color: #04AA6D;
+    color: white;
+    min-width: 150px;
+}
+table {
+    margin: 0 auto;
+    border: black 1px solid;
+    padding: 0;
+}
+
+#left-content {
+    float: left;
+}
+
+#table-container {
+    clear: both;
+    margin-top: 20px;
+    text-align: center;
 }
