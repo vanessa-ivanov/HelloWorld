@@ -34,9 +34,9 @@
             </tr>
             <tbody th:each="vacation : ${vacations}">
             <tr>
-                <td th:text="${vacation.getStartDate()}">></td>
-                <td th:text="${vacation.getEndDate()}">></td>
-                <td th:text="${vacation.durationInDays()}">></td>
+                <td th:text="${vacation.getStartDate()}"></td>
+                <td th:text="${vacation.getEndDate()}"></td>
+                <td th:text="${vacation.durationInDays()}"></td>
                 <td>
                     <form action="deleteVacation" method="post">
                         <input type="hidden" name="startDate" th:value="${vacation.startDate}"/>

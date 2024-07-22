@@ -6,9 +6,7 @@ import com.interns.simpleApp.model.Vacation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -81,7 +79,7 @@ public class IndexController {
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
         activeUser = user;
-        model.addAttribute("vacations", activeUser.getVacations());
+        model.addAttribute("vacations", getActiveUser().getVacations());
         return "welcome";
     }
 
@@ -130,7 +128,7 @@ public class IndexController {
     }
 
     @RequestMapping("/loginInput")
-    public String userLoginInput(@ModelAttribute LoginData login, Model model) {
+    public String userLoginInput(LoginData login, Model model) {
         logger.setLevel(Level.ALL);
         logger.info("USER TRYING TO LOGIN");
         for (User userLogin : users) {
@@ -139,11 +137,18 @@ public class IndexController {
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
                 logger.info("LOGIN COMPLETE");
-                model.addAttribute("vacations", activeUser.getVacations());
+                // Adding vacations to the model
+                List<Vacation> vacations = activeUser.getVacations();
+                if (vacations != null && !vacations.isEmpty()) {
+                    logger.info("Vacations found: " + vacations.size());
+                } else {
+                    logger.info("No vacations found for the user.");
+                }
+                model.addAttribute("vacations", getActiveUser().getVacations());
                 return "welcome";
             }
         }
-        //NSA = No Such Account
+        // NSA = No Such Account
         model.addAttribute("NSA", "No such account!");
         logger.warning("LOGIN FAILED");
         return "login";
@@ -173,7 +178,7 @@ public class IndexController {
         model.addAttribute("lastname", activeUser.getLname());
         model.addAttribute("DF", "Check password!");
         logger.warning("DELETION FAILED");
-        model.addAttribute("vacations", activeUser.getVacations());
+        model.addAttribute("vacations", getActiveUser().getVacations());
         return "welcome";
     }
 
@@ -193,10 +198,10 @@ public class IndexController {
             } else if (overlappingVacations(vacation)) {
                 model.addAttribute("VO", "Vacations overlapping!");
             } else {
-                activeUser.addVacation(vacation);
+                getActiveUser().addVacation(vacation);
             }
         }
-        model.addAttribute("vacations", activeUser.getVacations());
+        model.addAttribute("vacations", getActiveUser().getVacations());
         model.addAttribute("firstname", activeUser.getFname());
         model.addAttribute("lastname", activeUser.getLname());
         return "welcome";
@@ -241,5 +246,22 @@ public class IndexController {
 
     public boolean vacationInputEmpty(String start, String end) {
         return (start.isEmpty() || end.isEmpty());
+    }
+
+    public User getActiveUser(){
+        for (User user : users) {
+            if (userEqual(user, activeUser)) {
+                return user;
+            }
+        }
+        System.out.println("No active user set");
+        return null;
+    }
+
+    public boolean userEqual(User user, User other){
+        if (user.getEmail().equals(other.getEmail())) {
+            return true;
+        }
+        return false;
     }
 }
