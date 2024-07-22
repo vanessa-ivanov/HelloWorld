@@ -42,7 +42,7 @@ public class IndexController {
     }
 
     @RequestMapping("/registerInput")
-    public String userRegistrationInput(@ModelAttribute User user, Model model) {
+    public String userRegistrationInput(User user, Model model) {
         logger.setLevel(Level.ALL);
         logger.info("USER TRYING TO REGISTER");
         if (nonOptionalInputMissing(user)) {
@@ -225,7 +225,7 @@ public class IndexController {
     }
 
     public boolean overlappingVacations(Vacation vacation) {
-        //Check all vacations. How do you know which are free?
+        //Check all vacations. How do you know which ones are free?
         //for (User user : users) {
             for (Vacation other : activeUser.getVacations()) {
                 if ((vacation.getStartDate().isBefore(other.getEndDate())
