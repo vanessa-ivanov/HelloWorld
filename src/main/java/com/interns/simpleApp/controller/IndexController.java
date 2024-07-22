@@ -245,7 +245,11 @@ public class IndexController {
                 if ((vacation.getStartDate().isBefore(other.getEndDate())
                         && vacation.getStartDate().isAfter(other.getStartDate()))
                         || (vacation.getEndDate().isBefore(other.getEndDate())
-                        && vacation.getEndDate().isAfter(other.getStartDate()))){
+                        && vacation.getEndDate().isAfter(other.getStartDate()))
+                        || vacation.getStartDate().equals(other.getStartDate())
+                        || vacation.getStartDate().equals(other.getEndDate())
+                        || vacation.getEndDate().equals(other.getStartDate())
+                        || vacation.getEndDate().equals(other.getEndDate())) {
                     return true;
                 }
             }
