@@ -57,9 +57,9 @@ select {
 }
 header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
 }
 #start {
     background: url(https://wallpaperswide.com/download/exotic_vacation-wallpaper-2400x1350.jpg) no-repeat right fixed;
