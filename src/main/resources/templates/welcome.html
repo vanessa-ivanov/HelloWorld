@@ -22,6 +22,7 @@
             <input type="date" name="end" id="end"/> <br/>
         <button type="submit">Add vacation</button>
         </form>
+        <h2 class="error" th:text=${NEVD}>Not enough vacation days!</h2>
         <h2 class="error" th:text=${CI}>Check input!</h2>
         <h2 class="error" th:text=${VO}>Vacations overlapping!</h2>
         <h2 class="error" th:text=${VIE}>Fill in all data!</h2>
@@ -32,8 +33,8 @@
                 <th>Duration (Days):</th>
                 <th>Action</th>
             </tr>
-            <tbody th:each="vacation : ${vacations}">
-            <tr>
+            <tbody>
+            <tr th:each="vacation : ${vacations}">
                 <td th:text="${vacation.getStartDate()}"></td>
                 <td th:text="${vacation.getEndDate()}"></td>
                 <td th:text="${vacation.durationInDays()}"></td>
@@ -44,6 +45,10 @@
                         <button type="submit" class="deleteButton">Delete</button>
                     </form>
                 </td>
+            </tr>
+            <tr>
+                <td>Vacation days left:</td>
+                <td th:text=${VDL}>0</td>
             </tr>
             </tbody>
         </table>

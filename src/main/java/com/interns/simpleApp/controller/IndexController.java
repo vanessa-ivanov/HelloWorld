@@ -80,6 +80,7 @@ public class IndexController {
         model.addAttribute("lastname", user.getLname());
         activeUser = user;
         model.addAttribute("vacations", getActiveUser().getVacations());
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
         return "welcome";
     }
 
@@ -145,6 +146,7 @@ public class IndexController {
                     logger.info("No vacations found for the user.");
                 }
                 model.addAttribute("vacations", getActiveUser().getVacations());
+                model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
                 return "welcome";
             }
         }
@@ -179,6 +181,7 @@ public class IndexController {
         model.addAttribute("DF", "Check password!");
         logger.warning("DELETION FAILED");
         model.addAttribute("vacations", getActiveUser().getVacations());
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
         return "welcome";
     }
 
@@ -193,7 +196,9 @@ public class IndexController {
             model.addAttribute("VIE", "Fill in all data!");
         } else {
             Vacation vacation = vacationFormat(start, end);
-            if (vacation.vacationInputImpossible()) {
+            if (Vacation.notEnoughVacationDays(getActiveUser().getVacations(), vacation)) {
+                model.addAttribute("NEVD", "Not enough vacation days!");
+            } else if (vacation.vacationInputImpossible()) {
                 model.addAttribute("CI", "Check input!");
             } else if (overlappingVacations(vacation)) {
                 model.addAttribute("VO", "Vacations overlapping!");
@@ -202,12 +207,14 @@ public class IndexController {
             }
         }
         model.addAttribute("vacations", getActiveUser().getVacations());
+        //VDL = Vacation Days Left
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
         model.addAttribute("firstname", activeUser.getFname());
         model.addAttribute("lastname", activeUser.getLname());
         return "welcome";
     }
 
-    public Vacation vacationFormat(String start, String end) {
+    public static Vacation vacationFormat(String start, String end) {
         String[] sd = start.split("-");
         LocalDate startDate = LocalDate.of(Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
         String[] ed = end.split("-");
@@ -217,22 +224,23 @@ public class IndexController {
 
     @RequestMapping("/deleteVacation")
     public String deleteVacation(LocalDate startDate, LocalDate endDate, Model model) {
-        for (Vacation vacation : activeUser.getVacations()){
+        for (Vacation vacation : getActiveUser().getVacations()){
             if (vacation.getStartDate().equals(startDate) && vacation.getEndDate().equals(endDate)) {
-                activeUser.getVacations().remove(vacation);
+                getActiveUser().getVacations().remove(vacation);
                 break;
             }
         }
-        model.addAttribute("vacations", activeUser.getVacations());
-        model.addAttribute("firstname", activeUser.getFname());
-        model.addAttribute("lastname", activeUser.getLname());
+        model.addAttribute("vacations", getActiveUser().getVacations());
+        model.addAttribute("firstname", getActiveUser().getFname());
+        model.addAttribute("lastname", getActiveUser().getLname());
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
         return "welcome";
     }
 
     public boolean overlappingVacations(Vacation vacation) {
         //Check all vacations. How do you know which ones are free?
         //for (User user : users) {
-            for (Vacation other : activeUser.getVacations()) {
+            for (Vacation other : getActiveUser().getVacations()) {
                 if ((vacation.getStartDate().isBefore(other.getEndDate())
                         && vacation.getStartDate().isAfter(other.getStartDate()))
                         || (vacation.getEndDate().isBefore(other.getEndDate())
