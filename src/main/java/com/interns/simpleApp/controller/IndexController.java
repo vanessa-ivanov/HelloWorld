@@ -223,10 +223,11 @@ public class IndexController {
     }
 
     @RequestMapping("/deleteVacation")
-    public String deleteVacation(LocalDate startDate, LocalDate endDate, Model model) {
+    public String deleteVacation(int id, Model model) {
         for (Vacation vacation : getActiveUser().getVacations()){
-            if (vacation.getStartDate().equals(startDate) && vacation.getEndDate().equals(endDate)) {
+            if (vacation.getId() == id) {
                 getActiveUser().getVacations().remove(vacation);
+                Vacation.reduceId(getActiveUser().getVacations(), id);
                 break;
             }
         }

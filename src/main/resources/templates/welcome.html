@@ -28,6 +28,7 @@
         <h2 class="error" th:text=${VIE}>Fill in all data!</h2>
         <table>
             <tr>
+                <th>ID:</th>
                 <th>Start:</th>
                 <th>End:</th>
                 <th>Duration (Days):</th>
@@ -35,13 +36,13 @@
             </tr>
             <tbody>
             <tr th:each="vacation : ${vacations}">
+                <td th:text="${vacation.getId()}"></td>
                 <td th:text="${vacation.getStartDate()}"></td>
                 <td th:text="${vacation.getEndDate()}"></td>
                 <td th:text="${vacation.durationInDays()}"></td>
                 <td>
                     <form action="deleteVacation" method="post">
-                        <input type="hidden" name="startDate" th:value="${vacation.startDate}"/>
-                        <input type="hidden" name="endDate" th:value="${vacation.endDate}"/>
+                        <input type="hidden" name="id" th:value="${vacation.getId()}"/>
                         <button type="submit" class="deleteButton">Delete</button>
                     </form>
                 </td>
