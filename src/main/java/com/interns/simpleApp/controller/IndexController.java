@@ -1,8 +1,6 @@
 package com.interns.simpleApp.controller;
 
-import com.interns.simpleApp.model.LoginData;
-import com.interns.simpleApp.model.User;
-import com.interns.simpleApp.model.Vacation;
+import com.interns.simpleApp.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -182,10 +180,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/shop")
-    public String navigateToShop() {
-        return "shop";
-    }
+
 
     @RequestMapping("/addVacation")
     public String addVacation(String start, String end, Model model) {
@@ -218,4 +213,21 @@ public class IndexController {
         html.append("</table>");
         return html.toString();
     }
+
+    Product iPhone = new Product("IPhone 14", ProductType.PHONE, 900.0f);
+    Product garmin = new Product("Garmin venus 3", ProductType.SMARTWATCH, 450.9f);
+    Product mac = new Product("MacBook Pro", ProductType.LAPTOP, 3500.7f);
+
+    @RequestMapping("/shop")
+    public String navigateToShop(Model model) {
+        model.addAttribute("productName", iPhone.getName());
+        model.addAttribute("productPrice", iPhone.getPrice());
+        model.addAttribute("productName2", garmin.getName());
+        model.addAttribute("productPrice2", garmin.getPrice());
+        model.addAttribute("productName3", mac.getName());
+        model.addAttribute("productPrice3", mac.getPrice());
+
+        return "shop";
+    }
+
 }

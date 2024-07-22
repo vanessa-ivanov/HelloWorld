@@ -20,34 +20,7 @@ h1{
     padding: 2%;
     margin: 0%;
 }
-.search-container {
-    display: flex;
-    align-items: center;
-    margin-right: 4%; /* Adjust margin as needed */
-}
 
-input[type=text] {
-    padding: 1%;
-    font-size: 17px;
-    border: 1px solid black;
-    border-radius: 4px;
-    float: right;
-    margin-left: 80%;
-    height: 40px;
-}
-
-button[type=submit] {
-    padding: 1%;
-    font-size: 17px;
-    border: 1px solid black;
-    border-radius: 4px;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    margin-left: 2%;
-    height: 45px;
-    width: 45px;
-}
 
 button[type=submit]:hover {
     background-color: white;
@@ -55,4 +28,23 @@ button[type=submit]:hover {
 }
 body{
     background: #EDB0A4;
+}
+.container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.products{
+    background-color: #F77772;
+    padding: 2%;
+    margin: 2%;
+    width: 25%;
+    height: 25%;
+    float: left;
+}
+.productPic{
+    width: 100%;
+    max-height: 40%;
+    padding: 1%;
 }
