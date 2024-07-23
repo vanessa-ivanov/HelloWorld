@@ -17,23 +17,35 @@
     <div class="products">
         <img class="productPic"
              src="https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_97297092?x=536&y=402&format=jpg&quality=80&sp=yes&strip=yes&trim&ex=536&ey=402&align=center&resizesource&unsharp=1.5x1+0.7+0.02&cox=0&coy=0&cdx=536&cdy=402">
-        <h3 th:text="${productName}">Name</h3>
-        <h5 th:text="${productPrice + '€'}">Price</h5>
+        <h3>IPhone 14</h3>
+        <h5>900.0€</h5>
         <p>A short description about the product</p>
+        <form action="addProduct" method="post">
+            <input type="hidden" name="nameOfProduct" value="IPhone 14"/>
+            <button type="submit">add to basket</button>
+        </form>
     </div>
     <div class="products">
         <img class="productPic"
              src="https://res.garmin.com/transform/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.0,f_auto,h_400,q_auto,w_400/c_pad,h_400,w_400/v1/Product_Images/de_AT/products/010-02785-02/v/lf-xl?pgw=1">
-        <h3 th:text="${productName2}">Name</h3>
-        <h5 th:text="${productPrice2 + '€'}">Price</h5>
+        <h3 >Garmin venus 3</h3>
+        <h5>450.9€</h5>
         <p>A short description about the product</p>
+        <form action="addProduct" method="post">
+            <input type="hidden" name="nameOfProduct" value="Garmin venus 3"/>
+            <button type="submit">add to basket</button>
+        </form>
     </div>
     <div class="products">
         <img class="productPic"
              src="https://www.apple.com/newsroom/images/product/mac/standard/Apple-MacBook-Pro-M2-Pro-and-M2-Max-hero-230117.jpg.og.jpg?202405161805">
-        <h3 th:text="${productName3}">Name</h3>
-        <h5 th:text="${productPrice3 + '€'}">Price</h5>
+        <h3>MacBook Pro</h3>
+        <h5>3500.7€</h5>
         <p>A short description about the product</p>
+        <form action="addProduct" method="post">
+            <input type="hidden" name="nameOfProduct" value="MacBook Pro"/>
+            <button type="submit">add to basket</button>
+        </form>
     </div>
 </div>
 </body>

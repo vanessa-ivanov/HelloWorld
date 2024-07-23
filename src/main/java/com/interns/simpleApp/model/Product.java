@@ -2,7 +2,7 @@ package com.interns.simpleApp.model;
 
 public class Product {
     private String name;
-    private ProductType typ; // später enum erstellen
+    private ProductType typ;
     private float price;
     private int id;
 

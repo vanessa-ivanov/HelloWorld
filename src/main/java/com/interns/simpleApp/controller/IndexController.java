@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -214,20 +212,50 @@ public class IndexController {
         return html.toString();
     }
 
-    Product iPhone = new Product("IPhone 14", ProductType.PHONE, 900.0f);
-    Product garmin = new Product("Garmin venus 3", ProductType.SMARTWATCH, 450.9f);
-    Product mac = new Product("MacBook Pro", ProductType.LAPTOP, 3500.7f);
+    public Product[] createProducts() {
+        Product[] products = new Product[3];
+        products[0] = new Product("IPhone 14", ProductType.PHONE, 900.0f);
+        products[1] = new Product("Garmin venus 3", ProductType.SMARTWATCH, 450.9f);
+        products[2] = new Product("MacBook Pro", ProductType.LAPTOP, 3500.7f);
+
+        return products;
+    }
 
     @RequestMapping("/shop")
-    public String navigateToShop(Model model) {
-        model.addAttribute("productName", iPhone.getName());
-        model.addAttribute("productPrice", iPhone.getPrice());
-        model.addAttribute("productName2", garmin.getName());
-        model.addAttribute("productPrice2", garmin.getPrice());
-        model.addAttribute("productName3", mac.getName());
-        model.addAttribute("productPrice3", mac.getPrice());
+    public String navigateToShop() {
+        Product[] products = createProducts();
 
         return "shop";
     }
+
+    Basket basket = new Basket();
+
+    @RequestMapping("/addProduct")
+    public String addProduct(String nameOfProduct) {
+        Product[] products = createProducts();
+
+        /*
+        To see if everything is initialized correct
+        for (int i = 0; i < products.length; i++){
+            System.out.println(products[i].getName());
+        }
+        System.out.println(nameOfProduct);
+        */
+
+        // checks out if products inside the array match the name of the selected product
+        for (int i = 0; i < products.length; i++) {
+            if (products[i].getName().equals(nameOfProduct)) {
+                basket.addToBasket(products[i]);
+            }
+        }
+
+        // to check if the product was successfully added to the basket
+        //basket.printBasket();
+
+        return "shop";
+    }
+
+
+
 
 }

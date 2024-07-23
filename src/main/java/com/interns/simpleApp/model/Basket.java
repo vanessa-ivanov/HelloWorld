@@ -1,14 +1,17 @@
 package com.interns.simpleApp.model;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Basket {
-    ArrayList<Product> items;
+    private List<Product> items = new ArrayList<>();
 
+    /*
     public Basket(ArrayList<Product> items) {
         this.items =items;
     }
+     */
 
-    public ArrayList<Product> getItems() {
+    public List<Product> getItems() {
         return items;
     }
 
@@ -31,6 +34,17 @@ public class Basket {
         return subtotal() + 4.90f; // delivery
     }
     public void addToBasket(Product product) {
-        items.add(items.size()-1,product);
+        items.add(product);
+    }
+
+    public void printBasket() {
+        System.out.println("Items in basket");
+        if (items.size() == 0) {
+            System.out.println("Basket is empty");
+        } else {
+            for (int i = 0; i < items.size(); i++) {
+                System.out.println(items.get(i).getName());
+            }
+        }
     }
 }
