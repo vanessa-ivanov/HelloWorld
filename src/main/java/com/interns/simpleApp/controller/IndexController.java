@@ -254,6 +254,10 @@ public class IndexController {
 
         return "shop";
     }
+    @RequestMapping("/basket")
+    public String navigateToBasket() {
+        return "basket";
+    }
 
 
 
