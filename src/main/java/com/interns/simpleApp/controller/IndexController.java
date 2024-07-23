@@ -138,13 +138,6 @@ public class IndexController {
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
                 logger.info("LOGIN COMPLETE");
-                // Adding vacations to the model
-                List<Vacation> vacations = activeUser.getVacations();
-                if (vacations != null && !vacations.isEmpty()) {
-                    logger.info("Vacations found: " + vacations.size());
-                } else {
-                    logger.info("No vacations found for the user.");
-                }
                 model.addAttribute("vacations", getActiveUser().getVacations());
                 model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
                 return "welcome";

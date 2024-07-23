@@ -75,36 +75,35 @@ header {
     border-color: red;
     background-color: white;
 }
-td, th {
-    padding: 5px;
-    min-width: 150px;
+
+.deleteButton tr:hover {background-color:  red;}
+
+#vacationTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px auto 20px auto;
+}
+
+#vacationTable td, #vacationTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#vacationTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#vacationTable tr:hover {background-color: #ddd;}
+
+#vacationTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
     text-align: center;
-    vertical-align: middle;
-}
-tr {
-    display: flex;
-    align-items: center;
-}
-th {
-    margin: 0;
-    padding: 5px;
     background-color: #04AA6D;
     color: white;
-    min-width: 150px;
-}
-table {
-    margin: 0 auto;
-    border: black 1px solid;
-    padding: 0;
 }
 
 #left-content {
     float: left;
 }
 
-#table-container {
-    clear: both;
-    margin-top: 20px;
-    text-align: center;
-}
 tr:nth-child(even) {background-color: #f2f2f2;}
