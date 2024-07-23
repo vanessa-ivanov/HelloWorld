@@ -1,34 +1,36 @@
 package com.interns.simpleApp.model;
+import java.util.ArrayList;
 
 public class Basket {
-    private int amount;
-    private Product product;
+    ArrayList<Product> items;
 
-    public Basket(int amount, Product product) {
-        this.amount = amount;
-        this.product = product;
+    public Basket(ArrayList<Product> items) {
+        this.items =items;
     }
 
-    public int getAmount() {
-        return amount;
+    public ArrayList<Product> getItems() {
+        return items;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setItems(ArrayList<Product> items) {
+        this.items = items;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public int amountOfProducts() {
+        return items.size();
     }
 
     public float subtotal() {
-        return amount* product.getPrice();
+        float subtotal = 0.0f;
+        for (int i = 0; i < items.size(); i++) {
+            subtotal += items.get(i).getPrice();
+        }
+        return subtotal;
     }
     public float finalPrice() {
         return subtotal() + 4.90f; // delivery
+    }
+    public void addToBasket(Product product) {
+        items.add(items.size()-1,product);
     }
 }
