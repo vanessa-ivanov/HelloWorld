@@ -190,10 +190,13 @@ public class IndexController {
         } else {
             Vacation vacation = vacationFormat(start, end);
             if (Vacation.notEnoughVacationDays(getActiveUser().getVacations(), vacation)) {
+                Vacation.reduceVacationID();
                 model.addAttribute("NEVD", "Not enough vacation days!");
             } else if (vacation.vacationInputImpossible()) {
+                Vacation.reduceVacationID();
                 model.addAttribute("CI", "Check input!");
             } else if (overlappingVacations(vacation)) {
+                Vacation.reduceVacationID();
                 model.addAttribute("VO", "Vacations overlapping!");
             } else {
                 getActiveUser().addVacation(vacation);
