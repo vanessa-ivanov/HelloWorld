@@ -39,7 +39,9 @@ public class Basket {
     public void deleteProduct(int index) {
         items.remove(index);
     }
-
+    public void clearBasket() {
+        items.clear();
+    }
     public void printBasket() {
         System.out.println("Items in basket");
         if (items.isEmpty()) {

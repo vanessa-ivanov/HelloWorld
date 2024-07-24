@@ -332,6 +332,13 @@ public class IndexController {
         return "basket";
     }
 
+    @RequestMapping("/clearBasket")
+    public String clearBasket() {
+        basket.clearBasket();
+
+        return navigateToShop();
+    }
+
 
 
 

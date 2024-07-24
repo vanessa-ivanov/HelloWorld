@@ -35,13 +35,18 @@
             <td>
                     <form action="deleteProduct" method="post">
                         <input type="hidden" name="index" th:value="${productStat.index}"/>
-                        <button type="submit" class="deleteButton">Delete</button>
+                        <button type="submit">Delete</button>
                     </form>
             </td>
         </tr>
         <tr>
             <th class="title" th:text="'Current price: ' + ${subtotal} + ' €'">Current price: 0.0 €</th>
             <th class="title">Order</th>
+            <th class="title">
+                <form action="clearBasket" method="post">
+                    <button type="submit">Clear basket</button>
+                </form>
+            </th>
         </tr>
         </tbody>
     </table>
