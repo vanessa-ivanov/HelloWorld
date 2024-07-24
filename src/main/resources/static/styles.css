@@ -35,17 +35,6 @@ button {
     max-width: 800px;
     min-width: 400px;
 }
-.inputColumn {
-    padding: 10px 40px 10px 10px;
-    border-right: solid 2px;
-}
-#inputColumnLast {
-    margin: 10px 10px 10px 40px;
-}
-
-.flex-container {
-  display: flex;
-}
 label {
     font-size: 20px;
     font-family: arial, sans-serif;
@@ -78,6 +67,7 @@ header {
 }
 #startPage {
     background: url(https://wallpaperswide.com/download/exotic_vacation-wallpaper-2400x1350.jpg) no-repeat right fixed;
+    background-size: cover;
 }
 #registerPage {
     background: url(https://images.pexels.com/photos/784148/pexels-photo-784148.jpeg?cs=srgb&dl=pexels-molly-champion-256223-784148.jpg&fm=jpg) no-repeat fixed center;
@@ -88,18 +78,25 @@ header {
     background-size: cover;
 }
 #startOptions {
-    background-color: white;
-    padding: 10px;
-    max-width: 550px;
-    border: black 2px solid;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+    color: white;
+    margin: 10% auto 0 auto;
+    padding: 80px 10px 200px 10px;
+    min-width: 470px;
+    max-width: 500px;
+    border: white 5px solid;
+    text-align: center;
 }
 #startOptionsExtra {
+    margin: 0 auto 0 auto;
     background-color: white;
     border: black 2px solid;
-    padding: 10px 10px 120px 10px;
+    padding: 10px 10px 10px 10px;
     min-width: 470px;
-    max-width: 570px;
-    border-radius: 2%;
+    max-width: 500px;
 }
 .deleteButton {
     font-size: 15px !important;
