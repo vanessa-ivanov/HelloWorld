@@ -83,6 +83,10 @@ header {
     background: url(https://images.pexels.com/photos/784148/pexels-photo-784148.jpeg?cs=srgb&dl=pexels-molly-champion-256223-784148.jpg&fm=jpg) no-repeat fixed center;
     background-size: cover;
 }
+#loginPage {
+    background: url(https://www.hdwallpapers.in/download/ultra_nature_wallpaper_4k_hd-HD.jpg) no-repeat fixed bottom;
+    background-size: cover;
+}
 #startOptions {
     background-color: white;
     padding: 10px;
