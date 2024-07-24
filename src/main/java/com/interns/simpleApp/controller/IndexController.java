@@ -299,14 +299,6 @@ public class IndexController {
     public String addProduct(String nameOfProduct, Model model) {
         Product[] products = createProducts();
 
-        /*
-        To see if everything is initialized correct
-        for (int i = 0; i < products.length; i++){
-            System.out.println(products[i].getName());
-        }
-        System.out.println(nameOfProduct);
-        */
-
         // checks out if products inside the array match the name of the selected product
         for (int i = 0; i < products.length; i++) {
             if (products[i].getName().equals(nameOfProduct)) {
@@ -317,14 +309,25 @@ public class IndexController {
         // to check if the product was successfully added to the basket
         //basket.printBasket();
 
-
-
         return "shop";
     }
+
     @RequestMapping("/basket")
     public String navigateToBasket(Model model) {
-        model.addAttribute("Products", basket.toString());
+        model.addAttribute("products", basket.getItems());
+
+        //model.addAttribute("Products", basket.toString());
         //update subtotal
+        model.addAttribute("subtotal", basket.subtotal());
+        return "basket";
+    }
+
+    @RequestMapping("/deleteProduct")
+    public String deleteProduct(String index, Model model) {
+        int index2 = Integer.parseInt(index);
+        basket.deleteProduct(index2);
+
+        model.addAttribute("products", basket.getItems());
         model.addAttribute("subtotal", basket.subtotal());
         return "basket";
     }

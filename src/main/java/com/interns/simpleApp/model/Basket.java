@@ -51,6 +51,7 @@ public class Basket {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
@@ -58,4 +59,12 @@ public class Basket {
         }
         return output.toString();
     }
+
+    public int indexOfProduct(Product product) {
+        int index = 0;
+
+
+        return index;
+    }
 }
+

@@ -26,20 +26,18 @@
         <tr>
             <th class="title">Product:</th>
             <th class="title">Price:</th>
-            <!-- <th>Action</th> -->
+            <th class="title">Remove</th>
         </tr>
         <tbody>
-        <tr th:each="product : ${products}">
+        <tr th:each="product, productStat : ${products}">
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.getPrice()}"></td>
-            <!--    <td>
-                    <form action="deleteVacation" method="post">
-                        <input type="hidden" name="startDate" th:value="${vacation.startDate}"/>
-                        <input type="hidden" name="endDate" th:value="${vacation.endDate}"/>
+            <td>
+                    <form action="deleteProduct" method="post">
+                        <input type="hidden" name="index" th:value="${productStat.index}"/>
                         <button type="submit" class="deleteButton">Delete</button>
                     </form>
             </td>
-            -->
         </tr>
         <tr>
             <th class="title" th:text="'Current price: ' + ${subtotal} + ' €'">Current price: 0.0 €</th>
