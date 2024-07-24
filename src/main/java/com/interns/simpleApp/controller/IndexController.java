@@ -231,7 +231,7 @@ public class IndexController {
     Basket basket = new Basket();
 
     @RequestMapping("/addProduct")
-    public String addProduct(String nameOfProduct) {
+    public String addProduct(String nameOfProduct, Model model) {
         Product[] products = createProducts();
 
         /*
@@ -252,10 +252,15 @@ public class IndexController {
         // to check if the product was successfully added to the basket
         //basket.printBasket();
 
+
+
         return "shop";
     }
     @RequestMapping("/basket")
-    public String navigateToBasket() {
+    public String navigateToBasket(Model model) {
+        model.addAttribute("Products", basket.toString());
+        //update subtotal
+        model.addAttribute("subtotal", basket.subtotal());
         return "basket";
     }
 

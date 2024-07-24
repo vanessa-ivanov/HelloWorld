@@ -16,7 +16,9 @@
         <button type="submit">Jump to shop</button>
     </form>
 </header>
-
+<h3>Items inside your basket</h3>
+<ul th:utext=${Products}></ul>
+<h3 th:text="'Current price: ' + ${subtotal} + ' €'">Current price: 0.0 €</h3>
 
 </body>
 </html>

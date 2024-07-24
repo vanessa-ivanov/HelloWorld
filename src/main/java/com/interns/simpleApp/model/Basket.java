@@ -39,12 +39,20 @@ public class Basket {
 
     public void printBasket() {
         System.out.println("Items in basket");
-        if (items.size() == 0) {
+        if (items.isEmpty()) {
             System.out.println("Basket is empty");
         } else {
             for (int i = 0; i < items.size(); i++) {
                 System.out.println(items.get(i).getName());
             }
         }
+    }
+
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < items.size(); i++) {
+            output.append("<li>").append(items.get(i).getName()).append("</li>");
+        }
+        return output.toString();
     }
 }
