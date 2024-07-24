@@ -4,13 +4,17 @@ import com.interns.simpleApp.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +42,7 @@ public class IndexController {
     }
 
     @RequestMapping("/registerInput")
-    public String userRegistrationInput(@ModelAttribute User user, Model model) {
+    public String userRegistrationInput(User user, Model model) {
         logger.setLevel(Level.ALL);
         logger.info("USER TRYING TO REGISTER");
         if (nonOptionalInputMissing(user)) {
@@ -77,7 +81,8 @@ public class IndexController {
         model.addAttribute("firstname", user.getFname());
         model.addAttribute("lastname", user.getLname());
         activeUser = user;
-        activeUser.printUserVacations();
+        model.addAttribute("vacations", getActiveUser().getVacations());
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
         return "welcome";
     }
 
@@ -109,7 +114,6 @@ public class IndexController {
         String[] YDM = user.getDob().split("-");
         Date dob = new Date(Integer.parseInt(YDM[0]), Integer.parseInt(YDM[1]), Integer.parseInt(YDM[2]));
         return false;
-
         //For Testing false
         // (LocalDate.now().getYear() - dob.getYear() < 18);
     }
@@ -127,7 +131,7 @@ public class IndexController {
     }
 
     @RequestMapping("/loginInput")
-    public String userLoginInput(@ModelAttribute LoginData login, Model model) {
+    public String userLoginInput(LoginData login, Model model) {
         logger.setLevel(Level.ALL);
         logger.info("USER TRYING TO LOGIN");
         for (User userLogin : users) {
@@ -135,12 +139,20 @@ public class IndexController {
                 model.addAttribute("firstname", userLogin.getFname());
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
-                activeUser.printUserVacations();
                 logger.info("LOGIN COMPLETE");
+                // Adding vacations to the model
+                List<Vacation> vacations = activeUser.getVacations();
+                if (vacations != null && !vacations.isEmpty()) {
+                    logger.info("Vacations found: " + vacations.size());
+                } else {
+                    logger.info("No vacations found for the user.");
+                }
+                model.addAttribute("vacations", getActiveUser().getVacations());
+                model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
                 return "welcome";
             }
         }
-        //NSA = No Such Account
+        // NSA = No Such Account
         model.addAttribute("NSA", "No such account!");
         logger.warning("LOGIN FAILED");
         return "login";
@@ -170,6 +182,8 @@ public class IndexController {
         model.addAttribute("lastname", activeUser.getLname());
         model.addAttribute("DF", "Check password!");
         logger.warning("DELETION FAILED");
+        model.addAttribute("vacations", getActiveUser().getVacations());
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
         return "welcome";
     }
 
@@ -181,19 +195,30 @@ public class IndexController {
 
 
     @RequestMapping("/addVacation")
-    public String addVacation(String start, String end, Model model) {
-        Vacation vacation = vacationFormat(start, end);
-        if (vacation.vacationInputImpossible()){
-            System.out.println("Vacation impossible!");
+    public String addVacation(String start, String end, Model model) throws IOException {
+        if (vacationInputEmpty(start, end)) {
+            model.addAttribute("VIE", "Fill in all data!");
         } else {
-            activeUser.addVacation(vacation);
-            activeUser.printUserVacations();
-            model.addAttribute("Vacations", convertListToHtmlTable(activeUser.getVacations()));
+            Vacation vacation = vacationFormat(start, end);
+            if (Vacation.notEnoughVacationDays(getActiveUser().getVacations(), vacation)) {
+                model.addAttribute("NEVD", "Not enough vacation days!");
+            } else if (vacation.vacationInputImpossible()) {
+                model.addAttribute("CI", "Check input!");
+            } else if (overlappingVacations(vacation)) {
+                model.addAttribute("VO", "Vacations overlapping!");
+            } else {
+                getActiveUser().addVacation(vacation);
+            }
         }
+        model.addAttribute("vacations", getActiveUser().getVacations());
+        //VDL = Vacation Days Left
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
+        model.addAttribute("firstname", activeUser.getFname());
+        model.addAttribute("lastname", activeUser.getLname());
         return "welcome";
     }
 
-    public Vacation vacationFormat(String start, String end) {
+    public static Vacation vacationFormat(String start, String end) {
         String[] sd = start.split("-");
         LocalDate startDate = LocalDate.of(Integer.parseInt(sd[0]), Integer.parseInt(sd[1]), Integer.parseInt(sd[2]));
         String[] ed = end.split("-");
@@ -201,15 +226,55 @@ public class IndexController {
         return new Vacation(startDate, endDate);
     }
 
-    public String convertListToHtmlTable(List<Vacation> vacations) {
-        StringBuilder html = new StringBuilder();
-        html.append("<table>\n");
-        html.append("  <tr><th>Your Vacations</th></tr>\n"); // Optional: Header row
-        for (Vacation vacation : activeUser.getVacations()) {
-            html.append("  <tr><td>").append(activeUser.vacationStringFormat(vacation)).append("</td></tr>\n");
+    @RequestMapping("/deleteVacation")
+    public String deleteVacation(LocalDate startDate, LocalDate endDate, Model model) {
+        for (Vacation vacation : getActiveUser().getVacations()){
+            if (vacation.getStartDate().equals(startDate) && vacation.getEndDate().equals(endDate)) {
+                getActiveUser().getVacations().remove(vacation);
+                break;
+            }
         }
-        html.append("</table>");
-        return html.toString();
+        model.addAttribute("vacations", getActiveUser().getVacations());
+        model.addAttribute("firstname", getActiveUser().getFname());
+        model.addAttribute("lastname", getActiveUser().getLname());
+        model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
+        return "welcome";
+    }
+
+    public boolean overlappingVacations(Vacation vacation) {
+        //Check all vacations. How do you know which ones are free?
+        //for (User user : users) {
+            for (Vacation other : getActiveUser().getVacations()) {
+                if ((vacation.getStartDate().isBefore(other.getEndDate())
+                        && vacation.getStartDate().isAfter(other.getStartDate()))
+                        || (vacation.getEndDate().isBefore(other.getEndDate())
+                        && vacation.getEndDate().isAfter(other.getStartDate()))){
+                    return true;
+                }
+            }
+        //}
+        return false;
+    }
+
+    public boolean vacationInputEmpty(String start, String end) {
+        return (start.isEmpty() || end.isEmpty());
+    }
+
+    public User getActiveUser(){
+        for (User user : users) {
+            if (userEqual(user, activeUser)) {
+                return user;
+            }
+        }
+        System.out.println("No active user set");
+        return null;
+    }
+
+    public boolean userEqual(User user, User other){
+        if (user.getEmail().equals(other.getEmail())) {
+            return true;
+        }
+        return false;
     }
 
     public Product[] createProducts() {

@@ -2,19 +2,24 @@ package com.interns.simpleApp.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 public class Vacation {
     private LocalDate startDate;
     private LocalDate endDate;
+    private int id;
+
+    private static int vacationID = 0;
 
     public Vacation (LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
+        id = ++vacationID;
     }
 
-    public int durationInDays(Vacation vacation) {
-        Period period = Period.between(vacation.startDate, vacation.endDate);
-        return period.getDays();
+    public int durationInDays() {
+        Period period = Period.between(startDate, endDate);
+        return period.getDays() +1;
     }
 
     public void setStartDate(LocalDate startDate) {
@@ -31,6 +36,10 @@ public class Vacation {
         return endDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public boolean vacationInputImpossible() {
         if (startDate.isAfter(endDate)){
             return true;
@@ -39,5 +48,17 @@ public class Vacation {
             return true;
         }
         return false;
+    }
+
+    public static boolean notEnoughVacationDays(List<Vacation> vacations, Vacation vacation) {
+        return (vacationDaysLeft(vacations) - vacation.durationInDays() < 0);
+    }
+
+    public static int vacationDaysLeft(List<Vacation> vacations) {
+        int vacationDaysLeft = 30;
+        for (Vacation vacation : vacations) {
+            vacationDaysLeft -= (Period.between(vacation.startDate, vacation.getEndDate()).getDays() +1);
+        }
+        return vacationDaysLeft;
     }
 }
