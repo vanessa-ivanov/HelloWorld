@@ -30,9 +30,6 @@ public class Basket {
         }
         return subtotal;
     }
-    public float finalPrice() {
-        return subtotal() + 4.90f; // delivery
-    }
     public void addToBasket(Product product) {
         items.add(product);
     }
@@ -60,13 +57,6 @@ public class Basket {
             output.append("<li>").append(items.get(i).getName()).append("</li>");
         }
         return output.toString();
-    }
-
-    public int indexOfProduct(Product product) {
-        int index = 0;
-
-
-        return index;
     }
 }
 
