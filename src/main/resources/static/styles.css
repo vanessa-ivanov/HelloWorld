@@ -22,7 +22,7 @@ button {
 #a1Logo {
     width: 170px;
 }
-#input {
+#inputTitle {
     border-style: solid;
     border-size: 3px;
     border-color: black;
@@ -30,6 +30,9 @@ button {
     margin: auto;
     max-width: 800px;
     min-width: 600px;
+}
+.flex-container {
+  display: flex;
 }
 label {
     font-size: 20px;
@@ -110,10 +113,6 @@ header {
 
 #vacationTable th.deleteButton {
     text-align: center !important;
-}
-
-#left-content {
-    float: left;
 }
 
 #welcomeText {
