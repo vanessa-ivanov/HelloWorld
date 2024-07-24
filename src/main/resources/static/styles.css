@@ -12,31 +12,35 @@ h3 {
     font-family: arial, sans-serif;
 }
 button {
-    width: auto;
-    background-color: lightgrey;
-    margin: 20px 10px 20px 0px !important;
-    border-size: 3px;
-    border-radius: 5px;
-    font-size: 20px;
+    margin: 20px 0px 20px 10px !important;
 }
 #a1Logo {
     width: 170px;
 }
+.navLogo {
+    width: 40px;
+    margin-right: 20px !important;
+}
 #inputTitle {
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+    color: white;
     border-style: solid;
     border-size: 3px;
     border-color: black;
     padding: 10px;
-    margin: auto;
+    margin: 8% auto 0 auto;
     max-width: 800px;
     min-width: 600px;
 }
 .inputColumn {
-    padding: 10px 20px 10px 10px;
+    padding: 10px 40px 10px 10px;
     border-right: solid 2px;
 }
 #inputColumnLast {
-    margin: 10px 10px 10px 20px;
+    margin: 10px 10px 10px 40px;
 }
 
 .flex-container {
@@ -74,6 +78,10 @@ header {
 }
 #startPage {
     background: url(https://wallpaperswide.com/download/exotic_vacation-wallpaper-2400x1350.jpg) no-repeat right fixed;
+}
+#registerPage {
+    background: url(https://images.pexels.com/photos/784148/pexels-photo-784148.jpeg?cs=srgb&dl=pexels-molly-champion-256223-784148.jpg&fm=jpg) no-repeat fixed center;
+    background-size: cover;
 }
 #startOptions {
     background-color: white;
