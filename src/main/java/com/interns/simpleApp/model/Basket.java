@@ -36,6 +36,9 @@ public class Basket {
     public void addToBasket(Product product) {
         items.add(product);
     }
+    public void deleteProduct(int index) {
+        items.remove(index);
+    }
 
     public void printBasket() {
         System.out.println("Items in basket");

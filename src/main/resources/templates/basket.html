@@ -16,9 +16,37 @@
         <button type="submit">Jump to shop</button>
     </form>
 </header>
+<!--
 <h3>Items inside your basket</h3>
 <ul th:utext=${Products}></ul>
-<h3 th:text="'Current price: ' + ${subtotal} + ' €'">Current price: 0.0 €</h3>
 
+-->
+<div id="basket">
+    <table>
+        <tr>
+            <th class="title">Product:</th>
+            <th class="title">Price:</th>
+            <!-- <th>Action</th> -->
+        </tr>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <!--    <td>
+                    <form action="deleteVacation" method="post">
+                        <input type="hidden" name="startDate" th:value="${vacation.startDate}"/>
+                        <input type="hidden" name="endDate" th:value="${vacation.endDate}"/>
+                        <button type="submit" class="deleteButton">Delete</button>
+                    </form>
+            </td>
+            -->
+        </tr>
+        <tr>
+            <th class="title" th:text="'Current price: ' + ${subtotal} + ' €'">Current price: 0.0 €</th>
+            <th class="title">Order</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
