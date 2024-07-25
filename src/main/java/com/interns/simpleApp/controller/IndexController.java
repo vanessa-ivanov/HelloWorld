@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.print.attribute.standard.OrientationRequested;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -339,7 +340,23 @@ public class IndexController {
     }
 
     @RequestMapping("/order")
-    public String Order() {
+    public String order() {
+        return "order";
+    }
+
+    @RequestMapping("/createOrder")
+    public String createOrder(Model model, String address, String deliveryKind, String cardCredentials) {
+        Order order = new Order(activeUser, basket.getItems(), address, deliveryKind, LocalDate.now(), cardCredentials);
+
+        // to check if order has the correct list of items
+        if (order.getItems().isEmpty()) {
+            System.out.println("Basket is empty");
+        } else {
+            for (int i = 0; i < order.getItems().size(); i++) {
+                System.out.println(order.getItems().get(i).getName());
+            }
+        }
+
 
         return "order";
     }

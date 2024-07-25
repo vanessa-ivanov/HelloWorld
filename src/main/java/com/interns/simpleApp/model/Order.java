@@ -68,5 +68,6 @@ public class Order {
     public void setCardCredentials(String cardCredentials) {
         this.cardCredentials = cardCredentials;
     }
+
 }
 
