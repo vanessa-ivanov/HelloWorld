@@ -15,24 +15,32 @@ h3 {
     font-family: arial, sans-serif;
 }
 button {
-    width: auto;
-    background-color: lightgrey;
-    margin: 10px;
-    border-size: 3px;
-    border-radius: 5px;
-    font-size: 20px;
+    margin: 40px 10px 20px 0px !important;
 }
 #a1Logo {
-    width: 170px;
+    width: 100px;
+    margin-bottom: 0;
+    position: fixed;
+    top: max(400px, 85vh);
+    left: 20px;
 }
-#input {
+.navLogo {
+    width: 40px;
+    margin-right: 20px !important;
+}
+#inputTitle {
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+    color: white;
     border-style: solid;
     border-size: 3px;
     border-color: black;
     padding: 10px;
-    margin: auto;
+    margin: 8% auto 0 auto;
     max-width: 800px;
-    min-width: 600px;
+    min-width: 400px;
 }
 label {
     font-size: 20px;
@@ -44,15 +52,6 @@ input {
 }
 select {
     margin: 5px;
-}
-#navigation {
-    border-style: solid;
-    border-width: 0px 3px 3px 3px;
-    border-color: black;
-    padding: 10px;
-    margin: auto;
-    max-width: 800px;
-    min-width: 600px;
 }
 .error {
     color: #ff0000;
@@ -67,47 +66,112 @@ header {
 }
 #startPage {
     background: url(https://wallpaperswide.com/download/exotic_vacation-wallpaper-2400x1350.jpg) no-repeat right fixed;
+    background-size: cover;
+}
+#registerPage {
+    background: url(https://images.pexels.com/photos/784148/pexels-photo-784148.jpeg?cs=srgb&dl=pexels-molly-champion-256223-784148.jpg&fm=jpg) no-repeat fixed center;
+    background-size: cover;
+}
+#loginPage {
+    background: url(https://www.hdwallpapers.in/download/ultra_nature_wallpaper_4k_hd-HD.jpg) no-repeat fixed bottom;
+    background-size: cover;
+}
+#loginPage {
+    background: url(https://i.pinimg.com/originals/25/50/e9/2550e991b9f112a841f46722364ac4e8.jpg) no-repeat fixed bottom;
+    background-size: cover;
 }
 #startOptions {
-    background-color: white;
-    padding: 10px;
-    min-width: 500px;
-    max-width: 600px;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+    color: white;
+    padding: 100px 20px 100px 20px;
+    min-width: 400px;
+    max-width: 500px;
+    border: white 8px solid;
+    text-align: center;
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 2px;
 }
+#startOptionsExtra {
+    padding: 0 0 0 0;
+    margin: 0 auto 0 auto;
+    background-color: white;
+    border: white 8px solid;
+    min-width: 400px;
+    max-width: 500px;
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 2px;
+}
+#polaroid {
+    margin: 10vh auto 0 auto;
+    border-color: black;
+    border-size: 12px;
+    border-style: straight;
+    min-width: 400px;
+    max-width: 500px;
+}
+#startText {
+    font-size: 40pt !important;
+}
+.startButton {
+     display: block !important;
+     margin-left: auto !important;
+     margin-right: auto !important;
+}
+.startNavItem {
+    font-size: 20pt !important;
+}
+
 .deleteButton {
-    font-size: 12px !important;
+    font-size: 15px !important;
     border-color: red;
     background-color: white;
 }
-td, th {
-    padding: 5px;
-    min-width: 150px;
+.deleteForm {
+    padding: 5px !important;
+    height 20px !important;
+}
+#vacationTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px auto 20px auto;
     text-align: center;
-    vertical-align: middle;
+    box-shadow: 2px 2px 5px black;
 }
-tr {
-    display: flex;
-    align-items: center;
+
+#vacationTable td, #vacationTable th {
+    border: 1px solid #ddd;
+    padding: 8px !important;
+    height: 20px !important;
+    background-color: white;
 }
-th {
-    margin: 0;
-    padding: 5px;
+
+#vacationTable tr {
+    height: 20px !important;
+}
+
+#vacationTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
     background-color: #04AA6D;
     color: white;
-    min-width: 150px;
-}
-table {
-    margin: 0 auto;
-    border: black 1px solid;
-    padding: 0;
 }
 
-#left-content {
-    float: left;
+#vacationTable th.deleteButton {
+    text-align: center !important;
 }
 
-#table-container {
-    clear: both;
-    margin-top: 20px;
-    text-align: center;
+#welcomeText {
+    margin: 0;
+    background-color: #04AA6D;
+    padding: 10px 0px 0px 0px;
+    color: white !important;
+    box-shadow: 2px 2px 5px black;
 }
+
