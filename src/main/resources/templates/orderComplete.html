@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmln:th=www.thymeleaf.org xmlns:xmln="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shop</title>
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="input">
+    <h1>Your order was completed successfully!</h1>
+    <h3 th:text="'Your package should arrive in: ' + ${deliveryDuration} + ' days'"></h3>
+    <form action="welcome" method="post">
+        <button type="submit">Go back to start</button>
+    </form>
+</div>
+</body>
+</html>

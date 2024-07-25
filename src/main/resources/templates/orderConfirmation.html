@@ -8,7 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<h3>Please check your personal information</h3>
-
+<div class="input">
+    <h3>Please check your personal information</h3>
+    <p th:text="'Email: ' + ${email}"></p>
+    <p th:text="'Address: ' + ${address}"></p>
+    <p th:text="'Card-Credentials: ' + ${card}"></p>
+    <p th:text="'Delivery kind: ' + ${deliveryKind}"></p>
+    <p th:text="'Price: ' + ${price} + '€'"></p>
+    <p th:text="'Address: ' + ${address}"></p>
+    <p th:text="'Order Date: ' + ${orderDate}"></p>
+    <p th:text="'Delivery Date: ' + ${deliveryDate}"></p>
+    <form action="payment" method="post">
+        <button type="submit">Pay</button>
+    </form>
+    <form action="deleteOrder" method="post">
+        <button type="submit">cancel order</button>
+    </form>
+</div>
 </body>
 </html>

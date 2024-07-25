@@ -24,6 +24,7 @@ public class IndexController {
 
     int maxUsers = 2;
     List<User> users = new ArrayList<>();
+    List<Order> orders = new ArrayList<>();
     User activeUser;
 
     Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -347,17 +348,44 @@ public class IndexController {
     @RequestMapping("/createOrder")
     public String createOrder(Model model, String address, String deliveryKind, String cardCredentials) {
         Order order = new Order(activeUser, basket, address, deliveryKind, LocalDate.now(), cardCredentials);
-
+        orders.add(order);
         // to check if order has the correct list of items
         order.getBasket().printBasket();
+
+        model.addAttribute("email",order.getUser().getEmail());
+        model.addAttribute("address",order.getAddress());
+        model.addAttribute("card",order.getCardCredentials());
+        model.addAttribute("deliveryKind",order.getDeliveryKind());
+        model.addAttribute("orderDate",order.getDate());
+        model.addAttribute("deliveryDate",order.deliveryTime());
+        model.addAttribute("price",order.endPrice());
 
         return "orderConfirmation";
     }
 
     @RequestMapping("/payment")
     public String payment(Model model) {
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().equals(activeUser)) {
+                model.addAttribute("deliveryDuration",orders.get(i).deliveryDuration());
+            }
+        }
 
-        return "order";
+        basket.getItems().clear();
+
+        return "orderComplete";
+    }
+
+    @RequestMapping("/deleteOrder")
+    public String deleteOrder() {
+        orders.clear();
+
+        return welcome();
+    }
+
+    @RequestMapping("/welcome")
+    public String welcome() {
+        return "welcome";
     }
 
 
