@@ -1,13 +1,16 @@
 h1 {
+    color: grey;
     font-size: 28pt;
     font-family: arial, sans-serif;
 }
 h2 {
+    color: grey;
     margin: 5px 5px 20px 5px;
     font-size: 24pt;
     font-family: arial, sans-serif;
 }
 h3 {
+    color: grey;
     font-size: 20pt;
     font-family: arial, sans-serif;
 }
@@ -58,6 +61,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
     justify-content: center;
 }
 #startPage {
@@ -170,3 +174,4 @@ header {
     color: white !important;
     box-shadow: 2px 2px 5px black;
 }
+

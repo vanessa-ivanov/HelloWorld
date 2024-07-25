@@ -1,8 +1,6 @@
 package com.interns.simpleApp.controller;
 
-import com.interns.simpleApp.model.LoginData;
-import com.interns.simpleApp.model.User;
-import com.interns.simpleApp.model.Vacation;
+import com.interns.simpleApp.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.*;
+
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +28,7 @@ public class IndexController {
     Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String index() {
         logger.setLevel(Level.ALL);
         logger.info("USER ENTERED START PAGE");
@@ -183,6 +185,8 @@ public class IndexController {
         return "index";
     }
 
+
+
     @RequestMapping("/addVacation")
     public String addVacation(String start, String end, Model model) throws IOException {
         if (vacationInputEmpty(start, end)) {
@@ -273,4 +277,60 @@ public class IndexController {
         }
         return false;
     }
+
+    public Product[] createProducts() {
+        Product[] products = new Product[3];
+        products[0] = new Product("IPhone 14", ProductType.PHONE, 900.0f);
+        products[1] = new Product("Garmin venus 3", ProductType.SMARTWATCH, 450.9f);
+        products[2] = new Product("MacBook Pro", ProductType.LAPTOP, 3500.7f);
+
+        return products;
+    }
+
+    @RequestMapping("/shop")
+    public String navigateToShop() {
+        Product[] products = createProducts();
+
+        return "shop";
+    }
+
+    Basket basket = new Basket();
+
+    @RequestMapping("/addProduct")
+    public String addProduct(String nameOfProduct, Model model) {
+        Product[] products = createProducts();
+
+        /*
+        To see if everything is initialized correct
+        for (int i = 0; i < products.length; i++){
+            System.out.println(products[i].getName());
+        }
+        System.out.println(nameOfProduct);
+        */
+
+        // checks out if products inside the array match the name of the selected product
+        for (int i = 0; i < products.length; i++) {
+            if (products[i].getName().equals(nameOfProduct)) {
+                basket.addToBasket(products[i]);
+            }
+        }
+
+        // to check if the product was successfully added to the basket
+        //basket.printBasket();
+
+
+
+        return "shop";
+    }
+    @RequestMapping("/basket")
+    public String navigateToBasket(Model model) {
+        model.addAttribute("Products", basket.toString());
+        //update subtotal
+        model.addAttribute("subtotal", basket.subtotal());
+        return "basket";
+    }
+
+
+
+
 }
