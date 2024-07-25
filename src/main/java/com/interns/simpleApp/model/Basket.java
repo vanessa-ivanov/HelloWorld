@@ -30,13 +30,15 @@ public class Basket {
         }
         return subtotal;
     }
-    public float finalPrice() {
-        return subtotal() + 4.90f; // delivery
-    }
     public void addToBasket(Product product) {
         items.add(product);
     }
-
+    public void deleteProduct(int index) {
+        items.remove(index);
+    }
+    public void clearBasket() {
+        items.clear();
+    }
     public void printBasket() {
         System.out.println("Items in basket");
         if (items.isEmpty()) {
@@ -48,6 +50,7 @@ public class Basket {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
@@ -56,3 +59,4 @@ public class Basket {
         return output.toString();
     }
 }
+

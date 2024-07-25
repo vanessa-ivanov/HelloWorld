@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.print.attribute.standard.OrientationRequested;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -23,6 +24,7 @@ public class IndexController {
 
     int maxUsers = 2;
     List<User> users = new ArrayList<>();
+    List<Order> orders = new ArrayList<>();
     User activeUser;
 
     Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -300,14 +302,6 @@ public class IndexController {
     public String addProduct(String nameOfProduct, Model model) {
         Product[] products = createProducts();
 
-        /*
-        To see if everything is initialized correct
-        for (int i = 0; i < products.length; i++){
-            System.out.println(products[i].getName());
-        }
-        System.out.println(nameOfProduct);
-        */
-
         // checks out if products inside the array match the name of the selected product
         for (int i = 0; i < products.length; i++) {
             if (products[i].getName().equals(nameOfProduct)) {
@@ -318,17 +312,118 @@ public class IndexController {
         // to check if the product was successfully added to the basket
         //basket.printBasket();
 
-
-
         return "shop";
     }
+
     @RequestMapping("/basket")
     public String navigateToBasket(Model model) {
-        model.addAttribute("Products", basket.toString());
+        model.addAttribute("products", basket.getItems());
+
+        //model.addAttribute("Products", basket.toString());
         //update subtotal
         model.addAttribute("subtotal", basket.subtotal());
         return "basket";
     }
+
+    @RequestMapping("/deleteProduct")
+    public String deleteProduct(String index, Model model) {
+        int index2 = Integer.parseInt(index);
+        basket.deleteProduct(index2);
+
+        model.addAttribute("products", basket.getItems());
+        model.addAttribute("subtotal", basket.subtotal());
+        return "basket";
+    }
+
+    @RequestMapping("/clearBasket")
+    public String clearBasket() {
+        basket.clearBasket();
+        return navigateToShop();
+    }
+
+    @RequestMapping("/order")
+    public String order() {
+        return "order";
+    }
+
+    @RequestMapping("/createOrder")
+    public String createOrder(Model model, String address, String deliveryKind, String cardCredentials) {
+        if (!(address.isEmpty() || deliveryKind.isEmpty() || cardCredentials.isEmpty())) {
+            Order order = new Order(activeUser, basket, address, deliveryKind, LocalDate.now(), cardCredentials);
+            orders.add(order);
+            // to check if order has the correct list of items
+            order.getBasket().printBasket();
+
+            model.addAttribute("email", order.getUser().getEmail());
+            model.addAttribute("address", order.getAddress());
+            model.addAttribute("card", order.getCardCredentials());
+            model.addAttribute("deliveryKind", order.getDeliveryKind());
+            model.addAttribute("orderDate", order.getDate());
+            model.addAttribute("deliveryDate", order.deliveryTime());
+            model.addAttribute("price", order.endPrice());
+
+            return "orderConfirmation";
+        }
+        System.out.println("fill everything out");
+        return "order";
+    }
+
+    @RequestMapping("/payment")
+    public String payment(Model model) {
+        // if basket empty you can't order
+        if (!basket.getItems().isEmpty()) {
+            for (int i = 0; i < orders.size(); i++) {
+                if (orders.get(i).getUser().equals(activeUser)) {
+                    model.addAttribute("deliveryDuration", orders.get(i).deliveryDuration());
+                    model.addAttribute("price", orders.get(i).endPrice());
+                    model.addAttribute("items", orders.get(i).getBasket().getItems());
+                }
+            }
+
+            basket.getItems().clear();
+
+            return "orderComplete";
+        }
+        return "shop";
+    }
+
+    @RequestMapping("/orderComplete")
+    public String orderComplete(Model model) {
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().equals(activeUser)) {
+                model.addAttribute("deliveryDuration", orders.get(i).deliveryDuration());
+                model.addAttribute("price", orders.get(i).endPrice());
+                model.addAttribute("items", orders.get(i).getBasket().getItems());
+            }
+        }
+
+        return "orderComplete";
+    }
+
+    @RequestMapping("/deleteOrder")
+    public String deleteOrder() {
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().equals(activeUser)) {
+                orders.remove(i);
+            }
+        }
+
+        return welcome();
+    }
+
+    @RequestMapping("/welcome")
+    public String welcome() {
+        return "welcome";
+    }
+
+    // When nothing is inside your basket you can still order
+    // you can click on view order even though you haven't ordered anything
+    // you can't see the products you ordered when you click on view order
+    // -> when clear list of products inside basket, list of products inside of order gets cleared too
+    // you can only view your latest order
+    // design is bad on all order pages
+    // Card-credentials could be anything
+    // when adding same product in basket count them
 
 
 
