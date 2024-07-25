@@ -72,6 +72,10 @@ header {
     background: url(https://www.hdwallpapers.in/download/ultra_nature_wallpaper_4k_hd-HD.jpg) no-repeat fixed bottom;
     background-size: cover;
 }
+#loginPage {
+    background: url(https://i.pinimg.com/originals/25/50/e9/2550e991b9f112a841f46722364ac4e8.jpg) no-repeat fixed bottom;
+    background-size: cover;
+}
 #startOptions {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0, 0.6);
@@ -99,7 +103,7 @@ header {
     outline-width: 2px;
 }
 #polaroid {
-    margin: 20vh auto 0 auto;
+    margin: 10vh auto 0 auto;
     border-color: black;
     border-size: 12px;
     border-style: straight;
@@ -123,18 +127,28 @@ header {
     border-color: red;
     background-color: white;
 }
-
+.deleteForm {
+    padding: 5px !important;
+    height 20px !important;
+}
 #vacationTable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 50%;
     margin: 20px auto 20px auto;
     text-align: center;
+    box-shadow: 2px 2px 5px black;
 }
 
 #vacationTable td, #vacationTable th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 8px !important;
+    height: 20px !important;
+    background-color: white;
+}
+
+#vacationTable tr {
+    height: 20px !important;
 }
 
 #vacationTable th {
@@ -150,8 +164,9 @@ header {
 }
 
 #welcomeText {
+    margin: 0;
     background-color: #04AA6D;
     padding: 10px 0px 0px 0px;
     color: white !important;
-    border: #ddd 2px solid;
+    box-shadow: 2px 2px 5px black;
 }
