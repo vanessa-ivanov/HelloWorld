@@ -11,6 +11,21 @@
 <div class="input">
     <h1>Your order was completed successfully!</h1>
     <h3 th:text="'Your package should arrive in: ' + ${deliveryDuration} + ' days'"></h3>
+    <table>
+        <tr>
+            <th class="title">Product:</th>
+            <th class="title">Price:</th>
+        </tr>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.getName()}"></td>
+            <td th:text="${item.getPrice()}"></td>
+        </tr>
+        <tr>
+            <th class="title" th:text="'price: ' + ${price} + ' €'">price: 0.0 €</th>
+        </tr>
+        </tbody>
+    </table>
     <form action="welcome" method="post">
         <button type="submit">Go back to start</button>
     </form>

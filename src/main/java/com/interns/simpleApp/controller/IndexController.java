@@ -374,6 +374,8 @@ public class IndexController {
             for (int i = 0; i < orders.size(); i++) {
                 if (orders.get(i).getUser().equals(activeUser)) {
                     model.addAttribute("deliveryDuration", orders.get(i).deliveryDuration());
+                    model.addAttribute("price", orders.get(i).endPrice());
+                    model.addAttribute("items", orders.get(i).getBasket().getItems());
                 }
             }
 
@@ -382,6 +384,19 @@ public class IndexController {
             return "orderComplete";
         }
         return "shop";
+    }
+
+    @RequestMapping("/orderComplete")
+    public String orderComplete(Model model) {
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().equals(activeUser)) {
+                model.addAttribute("deliveryDuration", orders.get(i).deliveryDuration());
+                model.addAttribute("price", orders.get(i).endPrice());
+                model.addAttribute("items", orders.get(i).getBasket().getItems());
+            }
+        }
+
+        return "orderComplete";
     }
 
     @RequestMapping("/deleteOrder")
@@ -399,6 +414,15 @@ public class IndexController {
     public String welcome() {
         return "welcome";
     }
+
+    // When nothing is inside your basket you can still order
+    // you can click on view order even though you haven't ordered anything
+    // you can't see the products you ordered when you click on view order
+    // -> when clear list of products inside basket, list of products inside of order gets cleared too
+    // you can only view your latest order
+    // design is bad on all order pages
+    // Card-credentials could be anything
+    // when adding same product in basket count them
 
 
 
