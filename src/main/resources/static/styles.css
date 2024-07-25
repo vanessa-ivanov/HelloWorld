@@ -16,6 +16,8 @@ button {
 }
 #a1Logo {
     width: 170px;
+    margin-top: 110%;
+    margin-bottom: 0;
 }
 .navLogo {
     width: 40px;
@@ -46,15 +48,6 @@ input {
 select {
     margin: 5px;
 }
-#navigation {
-    border-style: solid;
-    border-width: 0px 3px 3px 3px;
-    border-color: black;
-    padding: 10px;
-    margin: auto;
-    max-width: 800px;
-    min-width: 600px;
-}
 .error {
     color: #ff0000;
     text-shadow: 1px 1px black;
@@ -83,21 +76,46 @@ header {
     -webkit-backdrop-filter: blur(3px);
       backdrop-filter: blur(3px);
     color: white;
-    margin: 10% auto 0 auto;
-    padding: 80px 10px 200px 10px;
-    min-width: 470px;
+    padding: 100px 20px 100px 20px;
+    min-width: 400px;
     max-width: 500px;
-    border: white 5px solid;
+    border: white 8px solid;
     text-align: center;
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 2px;
 }
 #startOptionsExtra {
+    padding: 0 0 0 0;
     margin: 0 auto 0 auto;
     background-color: white;
-    border: black 2px solid;
-    padding: 10px 10px 10px 10px;
-    min-width: 470px;
+    border: white 8px solid;
+    min-width: 400px;
+    max-width: 500px;
+    outline-style: solid;
+    outline-color: black;
+    outline-width: 2px;
+}
+#polaroid {
+    margin: 10% auto 0 auto;
+    border-color: black;
+    border-size: 12px;
+    border-style: straight;
+    min-width: 400px;
     max-width: 500px;
 }
+#startText {
+    font-size: 40pt !important;
+}
+.startButton {
+     display: block !important;
+     margin-left: auto !important;
+     margin-right: auto !important;
+}
+.startNavItem {
+    font-size: 20pt !important;
+}
+
 .deleteButton {
     font-size: 15px !important;
     border-color: red;
