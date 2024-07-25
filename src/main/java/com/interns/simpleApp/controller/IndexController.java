@@ -347,38 +347,50 @@ public class IndexController {
 
     @RequestMapping("/createOrder")
     public String createOrder(Model model, String address, String deliveryKind, String cardCredentials) {
-        Order order = new Order(activeUser, basket, address, deliveryKind, LocalDate.now(), cardCredentials);
-        orders.add(order);
-        // to check if order has the correct list of items
-        order.getBasket().printBasket();
+        if (!(address.isEmpty() || deliveryKind.isEmpty() || cardCredentials.isEmpty())) {
+            Order order = new Order(activeUser, basket, address, deliveryKind, LocalDate.now(), cardCredentials);
+            orders.add(order);
+            // to check if order has the correct list of items
+            order.getBasket().printBasket();
 
-        model.addAttribute("email",order.getUser().getEmail());
-        model.addAttribute("address",order.getAddress());
-        model.addAttribute("card",order.getCardCredentials());
-        model.addAttribute("deliveryKind",order.getDeliveryKind());
-        model.addAttribute("orderDate",order.getDate());
-        model.addAttribute("deliveryDate",order.deliveryTime());
-        model.addAttribute("price",order.endPrice());
+            model.addAttribute("email", order.getUser().getEmail());
+            model.addAttribute("address", order.getAddress());
+            model.addAttribute("card", order.getCardCredentials());
+            model.addAttribute("deliveryKind", order.getDeliveryKind());
+            model.addAttribute("orderDate", order.getDate());
+            model.addAttribute("deliveryDate", order.deliveryTime());
+            model.addAttribute("price", order.endPrice());
 
-        return "orderConfirmation";
+            return "orderConfirmation";
+        }
+        System.out.println("fill everything out");
+        return "order";
     }
 
     @RequestMapping("/payment")
     public String payment(Model model) {
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getUser().equals(activeUser)) {
-                model.addAttribute("deliveryDuration",orders.get(i).deliveryDuration());
+        // if basket empty you can't order
+        if (!basket.getItems().isEmpty()) {
+            for (int i = 0; i < orders.size(); i++) {
+                if (orders.get(i).getUser().equals(activeUser)) {
+                    model.addAttribute("deliveryDuration", orders.get(i).deliveryDuration());
+                }
             }
+
+            basket.getItems().clear();
+
+            return "orderComplete";
         }
-
-        basket.getItems().clear();
-
-        return "orderComplete";
+        return "shop";
     }
 
     @RequestMapping("/deleteOrder")
     public String deleteOrder() {
-        orders.clear();
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getUser().equals(activeUser)) {
+                orders.remove(i);
+            }
+        }
 
         return welcome();
     }
