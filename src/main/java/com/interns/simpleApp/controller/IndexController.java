@@ -346,17 +346,16 @@ public class IndexController {
 
     @RequestMapping("/createOrder")
     public String createOrder(Model model, String address, String deliveryKind, String cardCredentials) {
-        Order order = new Order(activeUser, basket.getItems(), address, deliveryKind, LocalDate.now(), cardCredentials);
+        Order order = new Order(activeUser, basket, address, deliveryKind, LocalDate.now(), cardCredentials);
 
         // to check if order has the correct list of items
-        if (order.getItems().isEmpty()) {
-            System.out.println("Basket is empty");
-        } else {
-            for (int i = 0; i < order.getItems().size(); i++) {
-                System.out.println(order.getItems().get(i).getName());
-            }
-        }
+        order.getBasket().printBasket();
 
+        return "orderConfirmation";
+    }
+
+    @RequestMapping("/payment")
+    public String payment(Model model) {
 
         return "order";
     }

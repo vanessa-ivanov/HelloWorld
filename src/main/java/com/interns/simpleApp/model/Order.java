@@ -1,20 +1,21 @@
 package com.interns.simpleApp.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
     private User user;
-    private List<Product> items = new ArrayList<>();
+    private Basket basket;
     private String address;
     private String deliveryKind; // fast or normal
     private LocalDate date;
     private String cardCredentials;
 
-    public Order(User user, List<Product> items, String address, String deliveryKind, LocalDate date, String cardCredentials) {
+    public Order(User user, Basket basket, String address, String deliveryKind, LocalDate date, String cardCredentials) {
         this.user = user;
-        this.items = items;
+        this.basket = basket;
         this.address = address;
         this.deliveryKind = deliveryKind;
         this.date = date;
@@ -29,12 +30,12 @@ public class Order {
         this.user = user;
     }
 
-    public List<Product> getItems() {
-        return items;
+    public Basket getBasket() {
+        return basket;
     }
 
-    public void setItems(List<Product> items) {
-        this.items = items;
+    public void setBasket(Basket basket) {
+        this.basket = basket;
     }
 
     public String getAddress() {
@@ -67,6 +68,25 @@ public class Order {
 
     public void setCardCredentials(String cardCredentials) {
         this.cardCredentials = cardCredentials;
+    }
+
+    public float endPrice() {
+        if (deliveryKind.equals("fast")) {
+            return basket.subtotal() + 4.90f; // pay extra for fast delivery
+        }
+        return basket.subtotal();
+    }
+
+    public LocalDate deliveryTime() {
+        if (deliveryKind.equals("fast")) {
+            return date.plusDays(2);
+        }
+        return date.plusDays(7);
+    }
+
+    public int deliveryDuration() {
+        Period period = Period.between(date, deliveryTime());
+        return period.getDays() +1;
     }
 
 }
