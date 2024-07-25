@@ -61,4 +61,17 @@ public class Vacation {
         }
         return vacationDaysLeft;
     }
+
+    public static void reduceId(List<Vacation> vacations, int deletedId){
+        for (Vacation vacation : vacations) {
+            if (vacation.id > deletedId) {
+                vacation.id -= 1;
+            }
+        }
+        reduceVacationID();
+    }
+
+    public static void reduceVacationID() {
+        vacationID -= 1;
+    }
 }

@@ -140,13 +140,6 @@ public class IndexController {
                 model.addAttribute("lastname", userLogin.getLname());
                 activeUser = userLogin;
                 logger.info("LOGIN COMPLETE");
-                // Adding vacations to the model
-                List<Vacation> vacations = activeUser.getVacations();
-                if (vacations != null && !vacations.isEmpty()) {
-                    logger.info("Vacations found: " + vacations.size());
-                } else {
-                    logger.info("No vacations found for the user.");
-                }
                 model.addAttribute("vacations", getActiveUser().getVacations());
                 model.addAttribute("VDL", Vacation.vacationDaysLeft(getActiveUser().getVacations()));
                 return "welcome";
@@ -201,10 +194,13 @@ public class IndexController {
         } else {
             Vacation vacation = vacationFormat(start, end);
             if (Vacation.notEnoughVacationDays(getActiveUser().getVacations(), vacation)) {
+                Vacation.reduceVacationID();
                 model.addAttribute("NEVD", "Not enough vacation days!");
             } else if (vacation.vacationInputImpossible()) {
+                Vacation.reduceVacationID();
                 model.addAttribute("CI", "Check input!");
             } else if (overlappingVacations(vacation)) {
+                Vacation.reduceVacationID();
                 model.addAttribute("VO", "Vacations overlapping!");
             } else {
                 getActiveUser().addVacation(vacation);
@@ -227,10 +223,11 @@ public class IndexController {
     }
 
     @RequestMapping("/deleteVacation")
-    public String deleteVacation(LocalDate startDate, LocalDate endDate, Model model) {
+    public String deleteVacation(int id, Model model) {
         for (Vacation vacation : getActiveUser().getVacations()){
-            if (vacation.getStartDate().equals(startDate) && vacation.getEndDate().equals(endDate)) {
+            if (vacation.getId() == id) {
                 getActiveUser().getVacations().remove(vacation);
+                Vacation.reduceId(getActiveUser().getVacations(), id);
                 break;
             }
         }
@@ -248,7 +245,11 @@ public class IndexController {
                 if ((vacation.getStartDate().isBefore(other.getEndDate())
                         && vacation.getStartDate().isAfter(other.getStartDate()))
                         || (vacation.getEndDate().isBefore(other.getEndDate())
-                        && vacation.getEndDate().isAfter(other.getStartDate()))){
+                        && vacation.getEndDate().isAfter(other.getStartDate()))
+                        || vacation.getStartDate().equals(other.getStartDate())
+                        || vacation.getStartDate().equals(other.getEndDate())
+                        || vacation.getEndDate().equals(other.getStartDate())
+                        || vacation.getEndDate().equals(other.getEndDate())) {
                     return true;
                 }
             }

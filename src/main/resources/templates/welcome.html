@@ -6,28 +6,62 @@
     <title>welcome</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
-    <header>
+<body id="loginPage">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav nav-pills">
+                <img class=".navbar-brand rounded-pill navLogo" src="data:image/jpeg;base64,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">
+                <li class="nav-item">
+                    <a class="nav-link" href="index">Back to Start</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Web shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Welcome</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Delete account</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="dropdown-item">
+                                <form action="deleteAccount" method="post">
+                                    <label for="passwd">Password :</label> <br/>
+                                    <input type="password" name="passwd" id="passwd"/> <br/>
+
+                                    <button type="submit">Delete Account</button>
+                                </form>
+                                <h2 class="error" th:text=${DF}>Check password!</h2>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <header id="welcomeText">
         <h2>Welcome user:</h2>
         <h2 th:text=${firstname}>firstname</h2>
         <h2 th:text=${lastname}>lastname</h2>
     </header>
     <main>
-        <h3>Add vacation</h3>
-            <form action="addVacation" method="post">
-            <label for="start">From: </label> <br/>
-            <input type="date" name="start" id="start"/> <br/>
-            <label for="end">To:</label> <br/>
-            <input type="date" name="end" id="end"/> <br/>
-        <button type="submit">Add vacation</button>
-        </form>
-        <h2 class="error" th:text=${NEVD}>Not enough vacation days!</h2>
-        <h2 class="error" th:text=${CI}>Check input!</h2>
-        <h2 class="error" th:text=${VO}>Vacations overlapping!</h2>
-        <h2 class="error" th:text=${VIE}>Fill in all data!</h2>
-        <table>
+        <table id="vacationTable">
             <tr>
+                <th>ID:</th>
                 <th>Start:</th>
                 <th>End:</th>
                 <th>Duration (Days):</th>
@@ -35,48 +69,48 @@
             </tr>
             <tbody>
             <tr th:each="vacation : ${vacations}">
+                <td th:text="${vacation.getId()}"></td>
                 <td th:text="${vacation.getStartDate()}"></td>
                 <td th:text="${vacation.getEndDate()}"></td>
                 <td th:text="${vacation.durationInDays()}"></td>
                 <td>
-                    <form action="deleteVacation" method="post">
-                        <input type="hidden" name="startDate" th:value="${vacation.startDate}"/>
-                        <input type="hidden" name="endDate" th:value="${vacation.endDate}"/>
-                        <button type="submit" class="deleteButton">Delete</button>
+                    <form action="deleteVacation" method="post" class="deleteForm">
+                        <input type="hidden" name="id" th:value="${vacation.getId()}"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
             <tr>
                 <td>Vacation days left:</td>
                 <td th:text=${VDL}>0</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                            Add vacations
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <h3>Add vacation</h3>
+                                <form action="addVacation" method="post">
+                                    <label for="start">From: </label> <br/>
+                                    <input type="date" name="start" id="start"/> <br/>
+                                    <label for="end">To:</label> <br/>
+                                    <input type="date" name="end" id="end"/> <br/>
+                                    <button type="submit">Add vacation</button>
+                                </form>
+                                <h2 class="error" th:text=${NEVD}>Not enough vacation days!</h2>
+                                <h2 class="error" th:text=${CI}>Check input!</h2>
+                                <h2 class="error" th:text=${VO}>Vacations overlapping!</h2>
+                                <h2 class="error" th:text=${VIE}>Fill in all data!</h2>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
-        <form action="deleteAccount" method="post">
-            <label for="passwd">Password :</label> <br/>
-            <input type="password" name="passwd" id="passwd"/> <br/>
-
-            <button type="submit">Delete Account</button>
-        </form>
-        <h2 class="error" th:text=${DF}>Check password!</h2>
-        <p/>
-        <form action="register" method="post">
-            <button type="submit">Back to registration</button>
-        </form>
-        <form action="login" method="post">
-            <button type="submit">Back to login</button>
-        </form>
-        <form action="shop" method="post">
-            <button type="submit">Jump to shop</button>
-        </form>
-            <form action="addVacation" method="post">
-            <label for="start">From: </label> <br/>
-            <input type="date" name="start" id="start"/> <br/>
-            <label for="end">To:</label> <br/>
-            <input type="date" name="end" id="end"/> <br/>
-            <button type="submit">Add vacation</button>
-                <h3 th:text=${Vacations}>Vacations</h3>
-        </form>
     </main>
     </body>
 </html>
