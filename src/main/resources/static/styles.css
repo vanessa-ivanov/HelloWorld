@@ -15,9 +15,11 @@ button {
     margin: 40px 10px 20px 0px !important;
 }
 #a1Logo {
-    width: 170px;
-    margin-top: 110%;
+    width: 100px;
     margin-bottom: 0;
+    position: fixed;
+    top: max(400px, 85vh);
+    left: 20px;
 }
 .navLogo {
     width: 40px;
@@ -97,7 +99,7 @@ header {
     outline-width: 2px;
 }
 #polaroid {
-    margin: 10% auto 0 auto;
+    margin: 20vh auto 0 auto;
     border-color: black;
     border-size: 12px;
     border-style: straight;
@@ -127,16 +129,13 @@ header {
     border-collapse: collapse;
     width: 50%;
     margin: 20px auto 20px auto;
+    text-align: center;
 }
 
 #vacationTable td, #vacationTable th {
     border: 1px solid #ddd;
     padding: 8px;
 }
-
-#vacationTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#vacationTable tr:hover {background-color: #ddd;}
 
 #vacationTable th {
     padding-top: 12px;
